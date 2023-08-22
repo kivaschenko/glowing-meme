@@ -19,17 +19,12 @@ class ActualOffers(models.Manager):
 
 class Offer(models.Model):
     author = models.ForeignKey(User, on_delete=models.PROTECT, related_name="offers")
-    category = models.ForeignKey(Category,
-                                 on_delete=models.CASCADE, related_name="offers")
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="offers")
     title = models.CharField(max_length=255, help_text='name of product widely')
-    type_offer = models.CharField(max_length=5,
-                                  choices=(("buy", "buy"), ("sell", "sell")))
-    price_dollar = models.DecimalField(max_digits=8, decimal_places=2, null=True,
-                                       blank=True, help_text="price in USD")
-    price_uah = models.DecimalField(max_digits=8, decimal_places=2, null=True,
-                                    blank=True, help_text="price in UAH")
-    amount = models.DecimalField(max_digits=6, decimal_places=3, null=True,
-                                 blank=True, help_text="amount in metric tonn")
+    type_offer = models.CharField(max_length=5, choices=(("buy", "buy"), ("sell", "sell")))
+    price_dollar = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, help_text="price in USD")
+    price_uah = models.DecimalField(max_digits=8, decimal_places=2, null=True, blank=True, help_text="price in UAH")
+    amount = models.DecimalField(max_digits=6, decimal_places=3, null=True, blank=True, help_text="amount in metric tonn")
     incoterms = models.CharField(max_length=3, default="FCA",
                                  choices=(
                                      ("EXW", "EXW"),
