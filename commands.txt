@@ -1,0 +1,2 @@
+python manage.py dumpdata offers.Category --format json --output \
+    offers/fixtures/categories.json --indent 2

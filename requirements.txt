@@ -1,0 +1,13 @@
+Django
+celery
+django-celery-beat
+django-celery-results
+django-configurations
+django-filter
+django-redis
+django-storages
+djangorestframework
+djangorestframework-simplejwt
+Markdown
+psycopg2-binary
+python-dotenv
