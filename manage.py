@@ -2,20 +2,13 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-from dotenv import load_dotenv
-
-project_folder = os.path.expanduser('./')  # adjust as appropriate
-load_dotenv(os.path.join(project_folder, '.env'))
 
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE',
-                          'refactored_graintrade.settings')
-    os.environ.setdefault('DJANGO_CONFIGURATION',
-                          os.environ.get('DJANGO_CONFIGURATION'))
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'refactored_graintrade.settings')
     try:
-        from configurations.management import execute_from_command_line
+        from django.core.management import execute_from_command_line
     except ImportError as exc:
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "
