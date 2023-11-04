@@ -60,11 +60,13 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     # 3rd parties
     'rest_framework',
-    'rest_framework_simplejwt',
+    # 'rest_framework_simplejwt',
+    'rest_framework_gis',
     'dotenv',
     "celery",
     "django_celery_results",
     "django_celery_beat",
+    'drf_spectacular',
     # local
     'offers.apps.OffersConfig',
 ]
@@ -133,7 +135,7 @@ USE_TZ = True
 
 # STATIC_URL = 'static/'
 STATIC_URL = '/static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # STATIC_URL = "staticfiles/"
 # STATIC_ROOT = BASE_DIR / "staticfiles"
 # STATICFILES_DIRS = [
@@ -147,7 +149,6 @@ MEDIA_ROOT = BASE_DIR / "mediafiles"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# https://django-select2.readthedocs.io/en/latest/index.html
 CACHES = {
     "default": {
         "BACKEND": "django_redis.cache.RedisCache",

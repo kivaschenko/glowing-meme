@@ -8,6 +8,8 @@ django-redis
 django-storages
 djangorestframework
 djangorestframework-simplejwt
+djangorestframework-gis
 Markdown
 psycopg2-binary
 python-dotenv
+drf-spectacular

@@ -10,9 +10,15 @@ load_dotenv(dotenv_path)
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    #     # 'rest_framework.permissions.IsAuthenticated',
+    #     # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # ],
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    #     # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 # Celery Configuration Options
 CELERY_IMPORTS = (
@@ -53,3 +59,11 @@ CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
 # # private media settings
 # PRIVATE_MEDIA_LOCATION = f"{AWS_STORAGE_BUCKET_NAME}/private"
 # PRIVATE_FILE_STORAGE = "core.storage_backends.PrivateMediaStorage"
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Graintrade Refactored API',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}

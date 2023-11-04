@@ -41,30 +41,22 @@ Install all dependencies:
 pip install --upgrade pip setuptools
 pip install -r requirements.txt
 ```
-Set the DJANGO_CONFIGURATION environment variable to the name of the class you just created, e.g. in bash:
-
-```
-export DJANGO_CONFIGURATION=Dev
-export DJANGO_SETTINGS_MODULE=refactored_graintrade.settings
-```
 Do migration and create superuser etc.:
 ```
 python manage.py migrate
 python manage.py collectstatic
 python manage.py createsuperuser
 ```
+### Loading fixtures
+```
+python manage.py loaddata --format json offers/fixtures/*
+```
 
-Run project:
+### Run project:
 ```
 python manage.py runserver
 ```
 ***and open in browser ->*** [http://localhost:8000/](http://localhost:8000/)
 
-*Alternatively* supply the `--configuration` option when using Django management 
-commands along the lines of Django’s default `--settings` command line option, e.g.
-
-```
-python -m manage runserver --settings=refactored_graintrade.settings --configuration=Dev
-```
 ## Production mode
 
