@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.models import User
+from django.views.generic import TemplateView
 from rest_framework import routers, serializers, viewsets
 # from rest_framework_simplejwt.views import (
 #     TokenObtainPairView,
@@ -28,6 +29,7 @@ from offers.urls import urlpatterns as offer_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('home/', TemplateView.as_view(template_name='home.html'), name="home"),
     # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
@@ -67,3 +69,11 @@ urlpatterns += [
 
 # Offers
 urlpatterns += offer_urlpatterns
+
+# monolith urls
+from offers.views import OffersListView
+
+urlpatterns += [
+    path('offers-list/', OffersListView.as_view(), name="offers-list"),
+]
+

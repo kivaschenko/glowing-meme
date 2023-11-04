@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 
@@ -14,7 +16,7 @@ class Category(models.Model):
 
 class ActualOffers(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(is_active=True)
+        return super().get_queryset().filter(is_active=True).filter(expired_at__lt=datetime.now())
 
 
 class Offer(models.Model):
@@ -55,5 +57,5 @@ class Offer(models.Model):
         return f'{self.title} {self.amount} ${self.price_dollar} {self.incoterms}'
 
     def save(self, *args, **kwargs):
-        # TODO: Add some post_save signal to define self.expired + 30 days
+        self.expired_at = datetime.now() + timedelta(days=30)
         super().save(*args, **kwargs)

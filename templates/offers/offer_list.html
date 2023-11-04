@@ -1,0 +1,23 @@
+{% extends 'home.html' %}
+{% block content %}
+<h1>Offers</h1>
+<div class="row">
+    <div class="col">
+        <div class="list-group">
+            {% for obj in object_list %}
+            <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ obj.title }}</h5>
+                    <small>{{ obj.created_at|date:"SHORT_DATE_FORMAT" }}</small>
+                </div>
+                    <p class="mb-1">{{ obj.type_offer }}: {{ obj.category }}</p>
+                <small>${{ obj.price_dollar }}</small>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col">
+        <a href="#" class="btn btn-primary">Add a new Offer</a>
+    </div>
+</div>
+{% endblock %}

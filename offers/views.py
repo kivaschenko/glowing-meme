@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.views.generic import ListView
 
-# Create your views here.
+from .models import Offer, Category
+
+
+class OffersListView(ListView):
+    model = Offer
+    queryset = Offer.actual.all()
+    paginate_by = 10
