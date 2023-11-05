@@ -67,6 +67,8 @@ INSTALLED_APPS = [
     "django_celery_results",
     "django_celery_beat",
     'drf_spectacular',
+    "crispy_forms",
+    "crispy_bootstrap5",
     # local
     'offers.apps.OffersConfig',
 ]
@@ -201,3 +203,5 @@ LOGGING = {
 
 # CSRF_TRUSTED_ORIGINS = ["https://*", "http://*/"]
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"

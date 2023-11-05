@@ -7,11 +7,11 @@ class OfferSerializer(GeoFeatureModelSerializer):
     class Meta:
         model = Offer
         fields = '__all__'
-        geo_field = 'location'
+        geo_field = 'geometry_point'
 
 class CategorySerializer(ModelSerializer):
     # offers = OfferSerializer(many=True, read_only=True)
     class Meta:
         model = Category
-        fields = ['name', 'offers']
+        fields = ['category_name', 'offers']
 
