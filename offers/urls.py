@@ -5,11 +5,11 @@ from .api import CategoryListView, OfferViewSet
 
 
 router = routers.DefaultRouter()
-router.register(r'offers', OfferViewSet, basename='offers')
+router.register(r"offers", OfferViewSet, basename="offers")
 urlpatterns = router.urls
 
-app_name = 'offers'
+app_name = "offers"
 
 urlpatterns += [
-    path('categories/', CategoryListView.as_view(), name='categories'),
+    path("categories/", CategoryListView.as_view(), name="categories"),
 ]

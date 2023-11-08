@@ -3,8 +3,8 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import permissions
 
 
-SAFE_METHODS = ('GET', 'HEAD', 'OPTIONS')
-MODIFY_METHODS = ('PUT', 'PATCH', 'DELETE')
+SAFE_METHODS = ("GET", "HEAD", "OPTIONS")
+MODIFY_METHODS = ("PUT", "PATCH", "DELETE")
 
 
 class CustomJWTAuthentication(JWTAuthentication):
@@ -33,6 +33,7 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
 
     def has_permission(self, request, view):
         super().has_permission(request, view)
+
     def has_object_permission(self, request, view, obj):
         """
         validate token and extract user_id
@@ -47,7 +48,7 @@ class IsAuthorOrReadOnly(permissions.BasePermission):
             except Exception as e:
                 return False
             if user.is_active:
-                if request.method == 'POST':
+                if request.method == "POST":
                     return True
                 elif request.method in MODIFY_METHODS:
                     return obj.author == user

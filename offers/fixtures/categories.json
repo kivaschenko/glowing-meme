@@ -1,0 +1,394 @@
+[
+{
+  "model": "offers.category",
+  "pk": 1,
+  "fields": {
+    "category_name": "Barley",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 2,
+  "fields": {
+    "category_name": "Beet molasses",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 3,
+  "fields": {
+    "category_name": "Buckwheat",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 4,
+  "fields": {
+    "category_name": "Chick-peas",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 5,
+  "fields": {
+    "category_name": "Coriander",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 6,
+  "fields": {
+    "category_name": "Corn",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 7,
+  "fields": {
+    "category_name": "Corn oil",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 8,
+  "fields": {
+    "category_name": "Flax",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 9,
+  "fields": {
+    "category_name": "Green peas",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 10,
+  "fields": {
+    "category_name": "Lentil",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 11,
+  "fields": {
+    "category_name": "Linseed oil",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 12,
+  "fields": {
+    "category_name": "Lupine",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 13,
+  "fields": {
+    "category_name": "Millet",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 14,
+  "fields": {
+    "category_name": "Mustard seeds",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 15,
+  "fields": {
+    "category_name": "Oat flour",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 16,
+  "fields": {
+    "category_name": "Oats",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 17,
+  "fields": {
+    "category_name": "Peas",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 18,
+  "fields": {
+    "category_name": "Poppy",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 19,
+  "fields": {
+    "category_name": "Rape-seed cake",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 20,
+  "fields": {
+    "category_name": "Rape-seed meal",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 21,
+  "fields": {
+    "category_name": "Rape-seed oil",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 22,
+  "fields": {
+    "category_name": "Rapes-eed",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 23,
+  "fields": {
+    "category_name": "Rice",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 24,
+  "fields": {
+    "category_name": "Rye",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 25,
+  "fields": {
+    "category_name": "Rye flour",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 26,
+  "fields": {
+    "category_name": "Rye grade 2",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 27,
+  "fields": {
+    "category_name": "Rye grade 3",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 28,
+  "fields": {
+    "category_name": "Rye grade 4",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 29,
+  "fields": {
+    "category_name": "Sorghum",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 30,
+  "fields": {
+    "category_name": "Soybean cake",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 31,
+  "fields": {
+    "category_name": "Soybean meal",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 32,
+  "fields": {
+    "category_name": "Soybean oil",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 33,
+  "fields": {
+    "category_name": "Soybeans",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 34,
+  "fields": {
+    "category_name": "Sugar",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 35,
+  "fields": {
+    "category_name": "Sugar beet pulp gran",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 36,
+  "fields": {
+    "category_name": "Sunflower",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 37,
+  "fields": {
+    "category_name": "Sunflower oil",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 38,
+  "fields": {
+    "category_name": "Sunflower oil cake",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 39,
+  "fields": {
+    "category_name": "Sunflower seed meal",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 40,
+  "fields": {
+    "category_name": "Triticale",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 41,
+  "fields": {
+    "category_name": "Vetch",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 42,
+  "fields": {
+    "category_name": "Wheat flour class 1",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 43,
+  "fields": {
+    "category_name": "Wheat flour extra class",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 44,
+  "fields": {
+    "category_name": "Wheat grade 1",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 45,
+  "fields": {
+    "category_name": "Wheat grade 2",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 46,
+  "fields": {
+    "category_name": "Wheat grade 3",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 47,
+  "fields": {
+    "category_name": "Wheat grade 4",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 48,
+  "fields": {
+    "category_name": "Wheat grade 5",
+    "description": "Description coming soon..."
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 49,
+  "fields": {
+    "category_name": "Wheat grade 6",
+    "description": "Description coming soon..."
+  }
+}
+]

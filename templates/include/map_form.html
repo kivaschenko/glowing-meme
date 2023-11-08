@@ -1,0 +1,57 @@
+<style>
+#map { position: absolute; top: 0px; bottom: 0; width: 600px; height: 400px;}
+#coordinates { position: absolute; top: 1000px; bottom: 0; width: 100%; height: 40px;}
+</style>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.min.js"></script>
+<link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.0/mapbox-gl-geocoder.css" type="text/css">
+
+<style>
+    #geocoder-container > div {
+        min-width: 50%;
+        margin-left: 25%;
+    }
+</style>
+<div id="map"></div>
+<script>
+	mapboxgl.accessToken = 'pk.eyJ1Ijoia2l2YXNjaGVua28iLCJhIjoiY2xva2dweG41MjR0aDJxbWVibTFid3VndyJ9._Gia54L_MbRbTl99ZilRXw';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [31.02, 49.55],
+        zoom: 6
+    });
+
+    const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        marker: {
+            color: 'orange'
+        },
+        mapboxgl: mapboxgl
+    });
+
+    map.addControl(geocoder);
+    let marker;
+    // Set up an event listener on the map.
+    map.on('click', function(e) {
+        // The event object (e) contains information like the
+        // coordinates of the point on the map that was clicked.
+        console.log('A click event has occurred at ' + e.lngLat);
+        console.log('This e: ' + e);
+        let latInput = document.getElementById("id_latitude");
+        let lngInput = document.getElementById("id_longitude");
+        lngInput.value = e.lngLat.toArray()[0]
+        latInput.value = e.lngLat.toArray()[1]
+        if (marker) {
+            marker.remove();
+        }
+        // Add marker by certain coordinates
+
+        marker = new mapboxgl.Marker({
+            draggable: true
+        })
+            .setLngLat(e.lngLat.toArray())
+            .addTo(map);
+    });
+
+</script>
