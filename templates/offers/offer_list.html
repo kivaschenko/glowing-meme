@@ -1,28 +1,39 @@
-{% extends 'home.html' %}
+{% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
 <h1>Offers</h1>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-4">
         <div class="list-group">
             {% for obj in object_list %}
-            <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">{{ obj.title }}</h5>
-                    <small>{{ obj.created_at|date:"SHORT_DATE_FORMAT" }}</small>
-                </div>
+                <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="mb-1">{{ obj.title }}</h5>
+                        <small>{{ obj.created_at|date }}</small>
+                    </div>
                     <p class="mb-1">{{ obj.type_offer }}: {{ obj.category }}</p>
-                <small>${{ obj.price_dollar }}</small>
-            </a>
+                    <small>${{ obj.price }}</small>
+                </a>
             {% endfor %}
         </div>
     </div>
     <div class="col-lg-6">
-        <form action="/create-offer/" method="post">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <input type="submit" class="btn btn-primary" value="Submit">
-        </form>
+        <a href="{% url 'create-offer' %}" class="btn-primary">Create Offer</a>
+        <p class="d-inline-flex gap-1">
+            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
+               Add a new Offer
+            </button>
+        </p>
+        <div class="row collapse" id="collapseForm">
+            <div class="col">
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    {% include 'include/map_form.html' %}
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

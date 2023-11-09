@@ -19,6 +19,7 @@ class Category(models.Model):
 
 
 class AddressDelivery(models.Model):
+    # TODO: Add Celery task to create address from coordinates and apply to certain offer record
     address = models.TextField(max_length=500, null=True)
     country = models.CharField(max_length=255, null=True)
     geometry_point = models.PointField(verbose_name="Location", srid=4326)
@@ -40,7 +41,7 @@ class ActualOffers(models.Manager):
             super()
             .get_queryset()
             .filter(is_active=True)
-            .filter(expired_at__lt=datetime.now())
+            .filter(expired_at__gte=datetime.now())
         )
 
 
