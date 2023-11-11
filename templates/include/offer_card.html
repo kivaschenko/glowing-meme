@@ -1,0 +1,18 @@
+<div class="card" style="width: 100%; position: relative;">
+    <img src="..." class="card-img-top" alt="...">
+    <div class="card-body">
+        <h5 class="card-title">{{ offer }}</h5>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Type: </strong>{{ offer.type_offer }}</li>
+            <li class="list-group-item"><strong>Price: </strong>{{ offer.price }} {{ offer.currency }}</li>
+            <li class="list-group-item"><strong>Amount: </strong>{{ offer.amount }} metric tons</li>
+            <li class="list-group-item"><strong>Terms delivery: </strong>{{ offer.terms_delivery }}</li>
+            <li class="list-group-item"><strong>Address: </strong>{{ offer.address }}</li>
+            <li class="list-group-item"><strong>Created at: </strong>{{ offer.created_at|date }}</li>
+            <li class="list-group-item"><strong>Expired at: </strong>{{ offer.expired_at|date }}</li>
+        </ul>
+        {% if offer.details %}
+            <p class="card-text">{{ offer.details }}{% else %}{% endif %}</p>
+        <a href="#" class="btn btn-primary">Send message</a>
+    </div>
+</div>

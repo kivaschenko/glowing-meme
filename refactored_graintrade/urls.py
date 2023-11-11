@@ -71,10 +71,11 @@ urlpatterns += [
 urlpatterns += offer_urlpatterns
 
 # monolith urls
-from offers.views import OffersListView, create_offer
+from offers.views import OffersListView, CreateOfferView, OfferDetailView
 
 urlpatterns += [
     path('offers-list/', OffersListView.as_view(), name="offers-list"),
-    path('create-offer/', create_offer, name='create-offer'),
+    path('create-offer/', CreateOfferView.as_view(), name='create-offer'),
+    path('offer-details/<int:pk>/', OfferDetailView.as_view(), name='offer-details'),
 ]
 

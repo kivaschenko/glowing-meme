@@ -6,16 +6,15 @@ from django.contrib.gis.db import models
 
 class Category(models.Model):
     # TODO: Add slug field
-    category_name = models.CharField(
-        max_length=120, unique=True, help_text="max 120 characters"
-    )
-    description = models.TextField(max_length=500)
+    category_name = models.CharField(max_length=120, unique=True, help_text="max 120 characters")
+    name_ua = models.CharField(max_length=120, null=True)
+    group = models.CharField(max_length=60, null=True)
 
     class Meta:
-        ordering = ["category_name"]
+        ordering = ["group", "category_name"]
 
     def __str__(self):
-        return f"{self.category_name}"
+        return f"{self.category_name} ({self.name_ua})"
 
 
 class AddressDelivery(models.Model):
@@ -50,7 +49,6 @@ class Offer(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="offers"
     )
-    title = models.CharField(max_length=255, help_text="name of product widely")
     type_offer = models.CharField(
         max_length=5, choices=(("buy", "buy"), ("sell", "sell"))
     )
@@ -65,6 +63,7 @@ class Offer(models.Model):
     is_active = models.BooleanField(default=True)
     latitude = models.DecimalField(max_digits=18, decimal_places=16, null=True)
     longitude = models.DecimalField(max_digits=18, decimal_places=16, null=True)
+    details = models.CharField(max_length=255, null=True)
     address = models.ForeignKey("AddressDelivery", on_delete=models.SET_NULL, null=True)
 
     objects = models.Manager()
@@ -74,7 +73,7 @@ class Offer(models.Model):
         ordering = ["-created_at"]
 
     def __str__(self):
-        return f"{self.title}"
+        return f"{self.category}"
 
     def __repr__(self):
         return f"<Offer(id={self.id} title={self.title}...)>"

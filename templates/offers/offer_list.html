@@ -3,37 +3,48 @@
 {% block content %}
 <h1>Offers</h1>
 <div class="row">
-    <div class="col-lg-4">
-        <div class="list-group">
-            {% for obj in object_list %}
-                <a href="#" class="list-group-item list-group-item-action" aria-current="true">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">{{ obj.title }}</h5>
-                        <small>{{ obj.created_at|date }}</small>
-                    </div>
-                    <p class="mb-1">{{ obj.type_offer }}: {{ obj.category }}</p>
-                    <small>${{ obj.price }}</small>
-                </a>
+    <div class="col-lg-6">
+        <table id="offerTable" class="table table-striped" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Category</th>
+                    <th>Type</th>
+                    <th>Price</th>
+                    <th>Incoterms</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for offer in offers %}
+                <tr>
+                    <td>{{ offer.category }}</td>
+                    <td>{{ offer.type_offer }}</td>
+                    <td>{{ offer.price }}
+                        {% if offer.currency == 'USD' %} $ {% elif offer.currency == 'UAH' %} грн.{% endif %}</td>
+                    <td>{{ offer.terms_delivery }}
+                        <span style="margin-left: 5px;">
+                        <a href="{% url 'offer-details' offer.pk %}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                            </svg>
+                        </a>
+
+                        </span>
+                    </td>
+                </tr>
             {% endfor %}
-        </div>
+            </tbody>
+        </table>
     </div>
     <div class="col-lg-6">
-        <a href="{% url 'create-offer' %}" class="btn-primary">Create Offer</a>
-        <p class="d-inline-flex gap-1">
-            <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForm" aria-expanded="false" aria-controls="collapseForm">
-               Add a new Offer
-            </button>
-        </p>
-        <div class="row collapse" id="collapseForm">
-            <div class="col">
-                <form action="" method="post">
-                    {% csrf_token %}
-                    {{ form|crispy }}
-                    {% include 'include/map_form.html' %}
-                    <input type="submit" class="btn btn-primary" value="Submit">
-                </form>
-            </div>
-        </div>
+        <a class="btn btn-primary" href="{% url 'create-offer' %}">Add your new Offer</a>
     </div>
 </div>
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        let table = new DataTable('#offerTable');
+    </script>
 {% endblock %}
