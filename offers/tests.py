@@ -36,7 +36,7 @@ class OfferTest(TestCase):
         new_offer = Offer.objects.last()
         self.assertEqual(new_offer.amount, Decimal('1123.58'))
 
-    def test_offer_wasnt_created_without_logged_user(self):
+    def test_offer_not_created_without_logged_user(self):
         category = Category.objects.first()
         # create offer
         form_data = dict(
@@ -52,6 +52,6 @@ class OfferTest(TestCase):
         )
         res = self.client.post("/create-offer/", data=form_data)
 
-        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.status_code, 302)
         new_offer = Offer.objects.last()
         self.assertIsNone(new_offer)

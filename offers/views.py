@@ -1,5 +1,7 @@
 from django.views.generic import ListView, DeleteView, DetailView
 from django.views.generic.edit import FormView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from .forms import OfferForm
 from .models import Offer
@@ -12,6 +14,7 @@ class OffersListView(ListView):
     context_object_name = 'offers'
 
 
+@method_decorator(login_required, name='dispatch')
 class CreateOfferView(FormView):
     form_class = OfferForm
     success_url = "/offers-list/"
@@ -42,6 +45,7 @@ class CreateOfferView(FormView):
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
 
 class OfferDetailView(DetailView):
     model = Offer
