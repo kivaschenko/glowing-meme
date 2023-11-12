@@ -27,6 +27,7 @@ class CreateOfferView(FormView):
             data = form.cleaned_data
             # create a new offer
             create_new_offer(
+                user_id=request.user.id,
                 category_id=data.get("category").id,
                 type_offer=data.get("type_offer"),
                 price=data.get("price"),

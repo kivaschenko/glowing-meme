@@ -42,19 +42,19 @@ class Offer(models.Model):
     created_at = models.DateField(auto_now=True)
     expired_at = models.DateField(null=True)
     is_active = models.BooleanField(default=True)
-    latitude = models.DecimalField(max_digits=18, decimal_places=16, null=True)
-    longitude = models.DecimalField(max_digits=18, decimal_places=16, null=True)
-    details = models.CharField(max_length=255, null=True)
+    latitude = models.DecimalField(max_digits=18, decimal_places=16, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=18, decimal_places=16, null=True, blank=True)
+    details = models.CharField(max_length=255, null=True, blank=True)
     # geometry location
     geometry_point = models.PointField(verbose_name="Location", srid=4326)
-    address = models.TextField(max_length=500, null=True)
-    country = models.CharField(max_length=255, null=True)
+    address = models.TextField(max_length=500, null=True, blank=True)
+    country = models.CharField(max_length=255, null=True, blank=True)
 
     objects = models.Manager()
     actual = ActualOffers()  # offers where expired datetime less or equal now
 
     class Meta:
-        ordering = ["-created_at"]
+        ordering = ["-created_at", "category"]
 
     def __str__(self):
         return f"{self.category}"

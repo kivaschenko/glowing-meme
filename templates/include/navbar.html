@@ -36,6 +36,10 @@
           <button class="btn btn-success" type="submit">Search</button>
         </form>
       </div>
+        {% if user.is_authenticated %}
+        <p>Hello, {{ user }}!</p>
+        <a href="{% url 'logout' %}">Log Out</a>
+        {% endif %}
     </div>
   </div>
 </nav>

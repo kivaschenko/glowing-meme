@@ -1,20 +1,20 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="row">
-        <div class="col-lg-6">
-            <form action="" method="post">
-                {% csrf_token %}
-                {{ form|crispy }}
-            <input type="submit" class="btn btn-primary btn-block" value="Submit">
-            </form>
-        </div>
-        <div class="col-lg-6">
-            <div style="margin-left: 10px; margin-top: 10px; margin-right: 10px; margin-bottom: 10px;">
-                <h5>Find your delivery place on the map using search and pick marker up.</h5>
-                <p>The coordinates will be added to form automatically.</p>
-                {% include 'include/map_form.html' %}
-            </div>
+<div class="row">
+    <div class="col-lg-6">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+        <input type="submit" class="btn btn-primary btn-block" value="Submit">
+        </form>
+    </div>
+    <div class="col-lg-6">
+        <div style="margin-left: 10px; margin-top: 10px; margin-right: 10px; margin-bottom: 10px;">
+            <h5>Find your delivery place on the map using search and pick marker up.</h5>
+            <p>The coordinates will be added to form automatically.</p>
+            {% include 'include/map_form.html' %}
         </div>
     </div>
+</div>
 {% endblock %}

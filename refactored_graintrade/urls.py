@@ -19,27 +19,35 @@ from django.urls import path, include
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
 from rest_framework import routers, serializers, viewsets
+
 # from rest_framework_simplejwt.views import (
 #     TokenObtainPairView,
 #     TokenRefreshView,
 # )
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
 
 from offers.urls import urlpatterns as offer_urlpatterns
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('home/', TemplateView.as_view(template_name='home.html'), name="home"),
+    path("admin/", admin.site.urls),
+    path("home/", TemplateView.as_view(template_name="home.html"), name="home"),
     # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path("accounts/", include("django.contrib.auth.urls")),
 ]
 
 urlpatterns += [
     # YOUR PATTERNS
-    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
-    path('apidoc/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
-    path('redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+    path(
+        "apidoc/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"
+    ),
+    path("redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
 ]
 
 
@@ -47,7 +55,7 @@ urlpatterns += [
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ['url', 'username', 'email', 'is_staff']
+        fields = ["url", "username", "email", "is_staff"]
 
 
 # ViewSets define the view behavior.
@@ -58,13 +66,13 @@ class UserViewSet(viewsets.ModelViewSet):
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
+router.register(r"users", UserViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns += [
-    path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path("", include(router.urls)),
+    path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
 
 # Offers
@@ -74,8 +82,7 @@ urlpatterns += offer_urlpatterns
 from offers.views import OffersListView, CreateOfferView, OfferDetailView
 
 urlpatterns += [
-    path('offers-list/', OffersListView.as_view(), name="offers-list"),
-    path('create-offer/', CreateOfferView.as_view(), name='create-offer'),
-    path('offer-details/<int:pk>/', OfferDetailView.as_view(), name='offer-details'),
+    path("offers-list/", OffersListView.as_view(), name="offers-list"),
+    path("create-offer/", CreateOfferView.as_view(), name="create-offer"),
+    path("offer-details/<int:pk>/", OfferDetailView.as_view(), name="offer-details"),
 ]
-

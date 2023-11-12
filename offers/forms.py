@@ -53,5 +53,5 @@ class OfferForm(Form):
         help_text="offers widely describe until 255 characters, allowed letters, digits and symbols ().-%,",
         validators=([validators.RegexValidator(regex=r"\w+[(). -%,]")]),
     )
-    latitude = CharField(max_length=20)
-    longitude = CharField(max_length=20)
+    latitude = CharField(max_length=20, widget=widgets.TextInput(attrs={"readonly": True}))
+    longitude = CharField(max_length=20, widget=widgets.TextInput(attrs={"readonly": True}))
