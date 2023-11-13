@@ -2,6 +2,10 @@ from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+from .tasks import get_address_from_coordinates
 
 
 class Category(models.Model):
@@ -60,8 +64,13 @@ class Offer(models.Model):
         return f"{self.category}"
 
     def __repr__(self):
-        return f"<Offer(id={self.id} title={self.title}...)>"
+        return f"<Offer(id={self.id} title={self.category}...)>"
 
     def save(self, *args, **kwargs):
         self.expired_at = datetime.now() + timedelta(days=30)
         super().save(*args, **kwargs)
+
+
+@receiver(post_save, sender=Offer, dispatch_uid="update_address_from_mapbox")
+def add_address(sender, instance, **kwargs):
+    get_address_from_coordinates(instance.longitude, instance.latitude, instance.id)
