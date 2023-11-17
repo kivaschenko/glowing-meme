@@ -1,12 +1,40 @@
 from django.views.generic import ListView, DeleteView, DetailView
 from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 
 from .forms import OfferForm
 from .models import Offer
 from .services import create_new_offer
 
+
+# -----------------
+# BUILT IN ACCOUNTS
+
+class RegistrationView(FormView):
+    template_name = 'registration/signup.html'
+    form_class = UserCreationForm
+    success_url = '/home/'
+    extra_context = {}
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests: instantiate a form instance with the passed
+        POST variables and then check if it's valid.
+        """
+        form = self.get_form()
+        if form.is_valid():
+            user = form.save()
+            self.extra_context.update({'messages': 'You have registered successfully!'})
+            login(request, user)
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+# ------
+# OFFERS
 
 class OffersListView(ListView):
     model = Offer

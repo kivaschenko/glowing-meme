@@ -38,6 +38,15 @@ urlpatterns = [
     # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("accounts/", include("django.contrib.auth.urls")),
+    # built-in path's:
+    # accounts/login/ [name='login']
+    # accounts/logout/ [name='logout']
+    # accounts/password_change/ [name='password_change']
+    # accounts/password_change/done/ [name='password_change_done']
+    # accounts/password_reset/ [name='password_reset']
+    # accounts/password_reset/done/ [name='password_reset_done']
+    # accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
+    # accounts/reset/done/ [name='password_reset_complete']
 ]
 
 urlpatterns += [
@@ -79,9 +88,10 @@ urlpatterns += [
 urlpatterns += offer_urlpatterns
 
 # monolith urls
-from offers.views import OffersListView, CreateOfferView, OfferDetailView
+from offers.views import RegistrationView, OffersListView, CreateOfferView, OfferDetailView
 
 urlpatterns += [
+    path("accounts/signup/", RegistrationView.as_view(), name='signup'),
     path("offers-list/", OffersListView.as_view(), name="offers-list"),
     path("create-offer/", CreateOfferView.as_view(), name="create-offer"),
     path("offer-details/<int:pk>/", OfferDetailView.as_view(), name="offer-details"),
