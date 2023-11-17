@@ -3,9 +3,8 @@ from django.views.generic.edit import FormView
 from django.utils.decorators import method_decorator
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 
-from .forms import OfferForm
+from .forms import OfferForm, CustomSignupForm
 from .models import Offer
 from .services import create_new_offer
 
@@ -15,7 +14,7 @@ from .services import create_new_offer
 
 class RegistrationView(FormView):
     template_name = 'registration/signup.html'
-    form_class = UserCreationForm
+    form_class = CustomSignupForm
     success_url = '/home/'
     extra_context = {}
 
