@@ -1,5 +1,5 @@
-<div class="card" style="width: 100%; position: relative;">
-    <img src="..." class="card-img-top" alt="...">
+<div class="card" style="width: 390px; position: relative;">
+    <img src="{% if offer.mini_map_img %}{{ offer.mini_map_img.url }}{% else %}{% endif %}" class="card-img-top" alt="Mini map static image">
     <div class="card-body">
         <h5 class="card-title">{{ offer }}</h5>
         <ul class="list-group list-group-flush">
