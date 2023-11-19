@@ -84,7 +84,5 @@ class Offer(models.Model):
 
 @receiver(post_save, sender=Offer, dispatch_uid="update_address_minimap_from_mapbox")
 def add_address_and_mini_map(sender, instance, **kwargs):
-    if not instance.address:
-        get_address_from_coordinates.delay(instance.longitude, instance.latitude, instance.id)
-    if not instance.mini_map_img.name:
-        get_mini_map_image_from_coordinates.delay(instance.longitude, instance.latitude, instance.id)
+    get_address_from_coordinates.delay(instance.longitude, instance.latitude, instance.id)
+    get_mini_map_image_from_coordinates.delay(instance.longitude, instance.latitude, instance.id)

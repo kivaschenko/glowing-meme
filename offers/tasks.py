@@ -1,7 +1,9 @@
-from decimal import Decimal
 import logging
+from decimal import Decimal
 
 from celery import shared_task
+
+from django.conf import settings
 
 
 logger = logging.Logger(__name__)
@@ -29,3 +31,21 @@ def get_address_from_coordinates(longitude: Decimal, latitude: Decimal, offer_id
         logger.info(f'Offers address updated successfully: {offer}.')
     except Exception as e:
         logger.exception(f'Occurred error during updating address: {e}.')
+
+
+@shared_task()
+def get_mini_map_image_from_coordinates(longitude: Decimal, latitude: Decimal, offer_id: int):
+    from .services import get_static_map_image_by_coords
+    from .models import Offer
+    from django.core.files.base import File, ContentFile
+    try:
+        logger.info(f'Start getting mini map image for Offer id={offer_id}')
+        offer = Offer.objects.get(id=offer_id)
+        filename = 'minimap_{}.png'.format(offer_id)
+        response_content = get_static_map_image_by_coords(longitude=longitude, latitude=latitude)
+        cf = ContentFile(response_content)
+        offer.mini_map_img.save(name=filename, content=File(cf))
+        offer.save()
+        logger.info('Offers mini map updated successfully: %', offer.id)
+    except Exception as e:
+        logger.exception(f'Occurred error during updating mini map: {e}')
