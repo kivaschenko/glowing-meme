@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.models import User
 from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 from rest_framework import routers, serializers, viewsets
 
 # from rest_framework_simplejwt.views import (
@@ -96,3 +98,7 @@ urlpatterns += [
     path("create-offer/", CreateOfferView.as_view(), name="create-offer"),
     path("offer-details/<int:pk>/", OfferDetailView.as_view(), name="offer-details"),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

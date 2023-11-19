@@ -4,8 +4,17 @@ from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.conf import settings
+from django.core.files.storage import storages, default_storage
 
-from .tasks import get_address_from_coordinates
+from .tasks import get_address_from_coordinates, get_mini_map_image_from_coordinates
+
+
+def select_storages():
+    if settings.DEBUG:
+        return default_storage
+    else:
+        return storages.get('digital_ocean')
 
 
 class Category(models.Model):
@@ -53,12 +62,14 @@ class Offer(models.Model):
     geometry_point = models.PointField(verbose_name="Location", srid=4326)
     address = models.TextField(max_length=500, null=True, blank=True)
     country = models.CharField(max_length=255, null=True, blank=True)
+    # images
+    mini_map_img = models.FileField(upload_to='offer_static_maps', storage=select_storages, null=True)
 
     objects = models.Manager()
     actual = ActualOffers()  # offers where expired datetime less or equal now
 
     class Meta:
-        ordering = ["-created_at", "category"]
+        ordering = ["-created_at"]
 
     def __str__(self):
         return f"{self.category}"
@@ -71,6 +82,9 @@ class Offer(models.Model):
         super().save(*args, **kwargs)
 
 
-@receiver(post_save, sender=Offer, dispatch_uid="update_address_from_mapbox")
-def add_address(sender, instance, **kwargs):
-    get_address_from_coordinates(instance.longitude, instance.latitude, instance.id)
+@receiver(post_save, sender=Offer, dispatch_uid="update_address_minimap_from_mapbox")
+def add_address_and_mini_map(sender, instance, **kwargs):
+    if not instance.address:
+        get_address_from_coordinates.delay(instance.longitude, instance.latitude, instance.id)
+    if not instance.mini_map_img.name:
+        get_mini_map_image_from_coordinates.delay(instance.longitude, instance.latitude, instance.id)

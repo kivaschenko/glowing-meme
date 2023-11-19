@@ -82,6 +82,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -130,6 +131,25 @@ STATIC_ROOT = os.path.join(BASE_DIR, "refactored_graintrade/static")
 # ]
 MEDIA_URL = "/mediafiles/"
 MEDIA_ROOT = BASE_DIR / "mediafiles"
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "digital_ocean": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "session_profile": '',
+            "access_key": '',
+            "secret_key": '',
+            "region_name": 'nyc3',
+            "endpoint_url": 'https://nyc3.digitaloceanspaces.com',
+        }
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -236,11 +256,11 @@ CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
 #
 # STATIC_URL = f"{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
 #
-# # public media settings
+# # public mediafiles settings
 # PUBLIC_MEDIA_LOCATION = f"{AWS_STORAGE_BUCKET_NAME}/mediafiles"
 # MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{PUBLIC_MEDIA_LOCATION}/"
 # DEFAULT_FILE_STORAGE = "core.storage_backends.PublicMediaStorage"
-# # private media settings
+# # private mediafiles settings
 # PRIVATE_MEDIA_LOCATION = f"{AWS_STORAGE_BUCKET_NAME}/private"
 # PRIVATE_FILE_STORAGE = "core.storage_backends.PrivateMediaStorage"
 

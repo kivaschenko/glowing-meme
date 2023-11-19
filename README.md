@@ -56,6 +56,13 @@ python manage.py loaddata --format json offers/fixtures/*
 ```
 python manage.py runserver
 ```
+
+### Celery
+```
+celery -A refactored_graintrade worker -l INFO
+```
+
+
 ***and open in browser ->*** [http://localhost:8000/](http://localhost:8000/)
 
 ## Production mode
