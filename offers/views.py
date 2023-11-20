@@ -1,5 +1,6 @@
 from django.views.generic import ListView, DeleteView, DetailView
 from django.views.generic.edit import FormView
+from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -7,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 from .forms import OfferForm, CustomSignupForm
 from .models import Offer
 from .services import create_new_offer
+from .events import NewOfferCreated
+from .bus_messages import handle
 
 
 # -----------------
@@ -32,6 +35,7 @@ class RegistrationView(FormView):
         else:
             return self.form_invalid(form)
 
+
 # ------
 # OFFERS
 
@@ -47,6 +51,13 @@ class CreateOfferView(FormView):
     success_url = "/offers-list/"
     template_name = "offers/create_offer.html"
 
+    def form_valid(self, form):
+        """If the form is valid, redirect to the supplied URL."""
+        if self.events:
+            for event in self.events:
+                handle(event)
+        return HttpResponseRedirect(self.get_success_url())
+
     def post(self, request, *args, **kwargs):
         """
         Handle POST requests: instantiate a form instance with the passed
@@ -56,22 +67,33 @@ class CreateOfferView(FormView):
         if form.is_valid():
             data = form.cleaned_data
             # create a new offer
-            create_new_offer(
-                user_id=request.user.id,
-                category_id=data.get("category").id,
-                type_offer=data.get("type_offer"),
-                price=data.get("price"),
-                currency=data.get("currency"),
-                amount=data.get("amount"),
-                terms_delivery=data.get("terms_delivery"),
-                latitude=data.get("latitude"),
-                longitude=data.get("longitude"),
-                details=data.get("details"),
-            )
+            new_offer = create_new_offer(user_id=request.user.id,
+                                         category_id=data.get("category").id,
+                                         type_offer=data.get("type_offer"),
+                                         price=data.get("price"),
+                                         currency=data.get("currency"),
+                                         amount=data.get("amount"),
+                                         terms_delivery=data.get("terms_delivery"),
+                                         latitude=data.get("latitude"),
+                                         longitude=data.get("longitude"),
+                                         details=data.get("details"),
+                                         )
+            # create a new events
+            self.events.append(NewOfferCreated(new_offer.longitude, new_offer.latitude, new_offer.id))
             # self.get(request, *args, **kwargs)
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
+
+    def setup(self, request, *args, **kwargs):
+        """Initialize attributes shared by all view methods."""
+        if hasattr(self, "get") and not hasattr(self, "head"):
+            self.head = self.get
+            self.request = request
+            self.args = args
+            self.kwargs = kwargs
+            # for events
+            self.events = []
 
 
 class OfferDetailView(DetailView):

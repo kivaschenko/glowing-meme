@@ -2,12 +2,8 @@ from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.conf import settings
 from django.core.files.storage import storages, default_storage
-
-from .tasks import get_address_from_coordinates, get_mini_map_image_from_coordinates
 
 
 def select_storages():
@@ -81,8 +77,3 @@ class Offer(models.Model):
         self.expired_at = datetime.now() + timedelta(days=30)
         super().save(*args, **kwargs)
 
-
-@receiver(post_save, sender=Offer, dispatch_uid="update_address_minimap_from_mapbox")
-def add_address_and_mini_map(sender, instance, **kwargs):
-    get_address_from_coordinates.delay(instance.longitude, instance.latitude, instance.id)
-    get_mini_map_image_from_coordinates.delay(instance.longitude, instance.latitude, instance.id)
