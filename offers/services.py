@@ -25,8 +25,8 @@ def create_new_offer(user_id: int = None, category_id: int = None, type_offer: s
 
 # ---------------
 # Mapbox services
-def get_address_info_by_coords(longitude: Decimal, latitude: Decimal, offer_id: int, endpoint: str = 'mapbox.places',
-                               access_token: str = settings.MAPBOX_ACCESS_TOKEN):
+def get_address_from_mapbox(longitude: Decimal, latitude: Decimal, endpoint: str = 'mapbox.places',
+                            access_token: str = settings.MAPBOX_ACCESS_TOKEN):
     """Get address from coordinates https://docs.mapbox.com/api/search/geocoding/"""
     logger.info(f'Start getting address by coords: {longitude}, {latitude}')
     url = f"https://api.mapbox.com/geocoding/v5/{endpoint}/{longitude},{latitude}.json"
@@ -35,10 +35,15 @@ def get_address_info_by_coords(longitude: Decimal, latitude: Decimal, offer_id: 
     if r.status_code == 200:
         response = r.json()
         logger.info(f"Got response: {response}")
+        return response
     else:
         logger.error(f"Failed request: {r.content}")
-        return
+        return {}
+
+
+def get_address_info_by_coords(longitude: Decimal, latitude: Decimal, offer_id: int):
     try:
+        response = get_address_from_mapbox(longitude, latitude)
         logger.info(f"Start getting address for Offer id={offer_id}.")
         offer = Offer.objects.get(id=offer_id)
         offer.address = response['features'][0]['place_name']
@@ -49,16 +54,16 @@ def get_address_info_by_coords(longitude: Decimal, latitude: Decimal, offer_id: 
         logger.exception(f'Occurred error during updating address: {e}.')
 
 
-def get_static_map_image_by_coords(longitude: Decimal, latitude: Decimal, offer_id: int,
-                                   style_id: str = 'light-v11',
-                                   overlay: str = None,
-                                   zoom: Decimal = Decimal(5.5),
-                                   bearing: int = 0,
-                                   pitch: int = 20,
-                                   width: int = 360,
-                                   height: int = 360,
-                                   access_token: str = settings.MAPBOX_ACCESS_TOKEN,
-                                   ):
+def get_static_map_image_from_mapbox(longitude: Decimal, latitude: Decimal,
+                                     style_id: str = 'light-v11',
+                                     overlay: str = None,
+                                     zoom: Decimal = Decimal(5.5),
+                                     bearing: int = 0,
+                                     pitch: int = 20,
+                                     width: int = 360,
+                                     height: int = 360,
+                                     access_token: str = settings.MAPBOX_ACCESS_TOKEN,
+                                     ):
     """Get static map from coordinates https://docs.mapbox.com/api/maps/static-images/ """
     if overlay is None:
         overlay = f'pin-s+555555({longitude},{latitude})'  # type and style for marker
@@ -69,14 +74,19 @@ def get_static_map_image_by_coords(longitude: Decimal, latitude: Decimal, offer_
     r = requests.get(url, params=params)
     if r.status_code == 200:
         logger.info(f"Got response: {r.content}")
+        return r.content
     else:
         logger.error(f"Failed request: {r.content}")
-        return
+        return None
+
+
+def get_static_map_image_by_coords(longitude: Decimal, latitude: Decimal, offer_id: int):
     try:
+        r_content = get_static_map_image_from_mapbox(longitude, latitude)
         logger.info(f'Start getting mini map image for Offer id={offer_id}')
         offer = Offer.objects.get(id=offer_id)
         filename = 'minimap_{}.png'.format(offer_id)
-        cf = ContentFile(r.content)
+        cf = ContentFile(r_content)
         offer.mini_map_img.save(name=filename, content=File(cf))
         offer.save()
         logger.info('Offers mini map updated successfully: %', offer.id)

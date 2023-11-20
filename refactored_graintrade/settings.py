@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     "crispy_forms",
     "crispy_bootstrap5",
+    "storages",
     # local
     'offers.apps.OffersConfig',
 ]
@@ -136,8 +137,8 @@ STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
     },
-    "digital_ocean": {
-        "BACKEND": "storages.backends.s3.S3Storage",
+    "remote_storage": {
+        "BACKEND": "refactored_graintrade.storage_backends.PublicMediaStorage",
         "OPTIONS": {
             "session_profile": '',
             "access_key": '',
