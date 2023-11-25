@@ -9,6 +9,7 @@ def handle(event: events.Event):
     for handler in HANDLERS[type(event)]:
         handler(event)
 
+
 # ---------------
 # NewOfferCreated
 def update_address(event: events.NewOfferCreated):

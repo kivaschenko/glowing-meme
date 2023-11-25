@@ -74,7 +74,7 @@ class Offer(models.Model):
     actual = ActualOffers()  # offers where expired datetime less or equal now
 
     class Meta:
-        ordering = ["-created_at"]
+        ordering = ["-created_at", "-id"]
 
     def __str__(self):
         return f"{self.category}"

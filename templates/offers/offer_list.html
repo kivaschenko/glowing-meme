@@ -19,7 +19,7 @@
             <tbody>
             {% for offer in offers %}
                 <tr>
-                    <td>{{ offer.created_at|date }}</td>
+                    <td>{{ offer.created_at|date:"c" }}</td>
                     <td>{{ offer.category }}
                         <span style="margin-left: 15px;">
                         <a href="{% url 'offer-details' offer.pk %}">...
