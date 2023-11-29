@@ -17,7 +17,7 @@ def create_new_offer(user_id: int = None, category_id: int = None, type_offer: s
                      amount: Decimal = None, terms_delivery: str = "", latitude: Decimal = None, longitude: Decimal = None, details: str = ""):
     # TODO: Add logging here
     obj = Offer(author_id=user_id, category_id=category_id, type_offer=type_offer, price=price, currency=currency, amount=amount, terms_delivery=terms_delivery,
-                latitude=latitude, longitude=longitude, details=details, geometry_point=fromstr(f'POINT({longitude} {latitude})', srid=4326))
+                latitude=latitude, longitude=longitude, details=details)
     obj.save()
     logger.info(f'Created a new Offer: {obj}')
     return obj

@@ -15,7 +15,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("DB_NAME"),
         "USER": os.environ.get("DB_USER"),
         "PASSWORD": os.environ.get("DB_PASSWORD"),
@@ -23,9 +23,9 @@ DATABASES = {
         "PORT": 5432,
     },
     "other": {
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": "other",
-        "USER": "geodjango",
+        "USER": "test-user",
     },
 }
 
