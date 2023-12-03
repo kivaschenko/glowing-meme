@@ -2,24 +2,10 @@ import logging
 from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
-from django.contrib.gis.db import models
+from django.db import models
 from django.conf import settings
-from django.core.files.storage import storages, default_storage
 
 logger = logging.Logger(__name__)
-
-
-def select_storages():
-    if settings.DEBUG:
-        return default_storage
-    else:
-        try:
-            remote_storage = storages['remote_storage']
-            return remote_storage
-        except Exception as e:
-            logger.exception(f'Problem with remote storage. {e}')
-        finally:
-            return default_storage
 
 
 class Category(models.Model):
@@ -63,12 +49,10 @@ class Offer(models.Model):
     latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     details = models.CharField(max_length=255, null=True, blank=True)
-    # geometry location
-    geometry_point = models.PointField(verbose_name="Location", srid=4326)
     address = models.TextField(max_length=500, null=True, blank=True)
     country = models.CharField(max_length=255, null=True, blank=True)
     # images
-    mini_map_img = models.FileField(upload_to='offer_static_maps', storage=select_storages, null=True)
+    mini_map_img = models.FileField(upload_to='offer_static_maps', null=True)
 
     objects = models.Manager()
     actual = ActualOffers()  # offers where expired datetime less or equal now

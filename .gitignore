@@ -65,7 +65,7 @@ celerybeat-schedule
 celerybeat.pid
 
 # Environments
-.env
+#.env
 env/
 
 # tests
@@ -75,4 +75,5 @@ static/
 mediafiles/
 
 # pycharm
-.idea
+.idea/
+htmlReport/

@@ -1,32 +1,18 @@
 import os
 from pathlib import Path
 
-from dotenv import load_dotenv
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-dotenv_path = Path(__file__).resolve().parent.parent / '.env'
-load_dotenv(dotenv_path=dotenv_path)
-
-DEBUG = os.environ.get("DEBUG")
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = '111b8049c47256e9f728a85809afcba1090157aa154c1779c6244d050321ef8d'
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get('DB_HOST', 'localhost'),
-        "PORT": 5432,
-    },
-    "other": {
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": "other",
-        "USER": "geodjango",
-    },
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 SITE_ID = 1
@@ -72,10 +58,7 @@ ROOT_URLCONF = 'refactored_graintrade.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(BASE_DIR / 'templates'),
-        ]
-        ,
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -113,7 +96,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kyiv'
 
 USE_I18N = True
 
@@ -122,49 +105,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-# STATIC_URL = 'static/'
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "refactored_graintrade/static")
-# STATIC_URL = "staticfiles/"
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'staticfiles',
-# ]
-MEDIA_URL = "/mediafiles/"
-MEDIA_ROOT = BASE_DIR / "mediafiles"
+DEFAULT_FILE_STORAGE = 'refactored_graintrade.storage_backends.AzureMediaStorage'
+STATICFILES_STORAGE = 'refactored_graintrade.storage_backends.AzureStaticStorage'
 
-STORAGES = {
-    "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-    },
-    "remote_storage": {
-        "BACKEND": "refactored_graintrade.storage_backends.PublicMediaStorage",
-        "OPTIONS": {
-            "session_profile": '',
-            "access_key": '',
-            "secret_key": '',
-            "region_name": 'nyc3',
-            "endpoint_url": 'https://nyc3.digitaloceanspaces.com',
-        }
-    },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
-}
+STATIC_LOCATION = "staticfiles"
+MEDIA_LOCATION = "mediafiles"
+
+AZURE_ACCOUNT_NAME = "csb100320031c4ce7be"
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.environ.get('CACHES_LOCATION'),
-        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
-        "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
-    },
-}
 
 # Logger
 LOGGING = {
@@ -202,9 +157,6 @@ LOGOUT_REDIRECT_URL = "home"
 LOGIN_REDIRECT_URL = "home"
 
 
-# TIME_ZONE = "America/New_York"
-# SITE_HOST = "https://some-production-domain.com"
-
 # CSRF_TRUSTED_ORIGINS = ["https://*", "http://*/"]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -239,31 +191,6 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
-
-# AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-# AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-#
-# AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
-#
-# AWS_S3_ENDPOINT_URL = "https://{}".format(os.environ.get("AWS_S3_ENDPOINT_URL"))
-# AWS_S3_CUSTOM_DOMAIN = os.environ.get("AWS_S3_CUSTOM_DOMAIN")
-# AWS_S3_OBJECT_PARAMETERS = {
-#     "CacheControl": "max-age=86400",
-# }
-# AWS_LOCATION = f"{AWS_STORAGE_BUCKET_NAME}/staticfiles"
-# AWS_DEFAULT_ACL = "public-read"
-#
-# STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-#
-# STATIC_URL = f"{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
-#
-# # public mediafiles settings
-# PUBLIC_MEDIA_LOCATION = f"{AWS_STORAGE_BUCKET_NAME}/mediafiles"
-# MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{PUBLIC_MEDIA_LOCATION}/"
-# DEFAULT_FILE_STORAGE = "core.storage_backends.PublicMediaStorage"
-# # private mediafiles settings
-# PRIVATE_MEDIA_LOCATION = f"{AWS_STORAGE_BUCKET_NAME}/private"
-# PRIVATE_FILE_STORAGE = "core.storage_backends.PrivateMediaStorage"
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Graintrade Refactored API',
