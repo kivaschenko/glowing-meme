@@ -8,10 +8,16 @@ SECRET_KEY = '111b8049c47256e9f728a85809afcba1090157aa154c1779c6244d050321ef8d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+if 'CODESPACE_NAME' in os.environ:
+    CSRF_TRUSTED_ORIGINS = [f'https://{os.getenv("CODESPACE_NAME")}-8000.{os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")}']
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['DBNAME'],
+        'HOST': hostname + ".postgres.database.azure.com",
+        'USER': os.environ['DBUSER'] + "@" + hostname,
+        'PASSWORD': os.environ['DBPASS']
     }
 }
 
@@ -96,7 +102,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Europe/Kyiv'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -156,9 +162,6 @@ LOGGING = {
 LOGOUT_REDIRECT_URL = "home"
 LOGIN_REDIRECT_URL = "home"
 
-
-# CSRF_TRUSTED_ORIGINS = ["https://*", "http://*/"]
-
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 # Mapbox
@@ -181,7 +184,7 @@ REST_FRAMEWORK = {
 CELERY_IMPORTS = (
     "offers.tasks",
 )
-CELERY_TIMEZONE = "Europe/Kyiv"
+CELERY_TIMEZONE = "UTC"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_CACHE_BACKEND = 'default'
