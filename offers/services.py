@@ -55,7 +55,7 @@ def get_address_info_by_coords(longitude: Decimal, latitude: Decimal, offer_id: 
 
 
 def get_static_map_image_from_mapbox(longitude: Decimal, latitude: Decimal,
-                                     style_id: str = 'light-v11',
+                                     style_id: str = 'streets-v12',
                                      overlay: str = None,
                                      zoom: Decimal = Decimal(5.5),
                                      bearing: int = 0,
