@@ -1,20 +1,18 @@
+# https://django-storages.readthedocs.io/en/latest/backends/azure.html
 from django.conf import settings
-from storages.backends.s3boto3 import S3Boto3Storage
+
+from storages.backends.azure_storage import AzureStorage
 
 
-class StaticStorage(S3Boto3Storage):
-    location = 'staticfiles'
-    default_acl = 'public-read'
+class AzureMediaStorage(AzureStorage):
+    account_name = settings.AZURE_ACCOUNT_NAME
+    account_key = settings.AZURE_ACCOUNT_KEY
+    azure_container = 'mediafiles'
+    expiration_secs = None
 
 
-class PublicMediaStorage(S3Boto3Storage):
-    location = 'mediafiles'
-    default_acl = 'public-read'
-    file_overwrite = False
-
-
-class PrivateMediaStorage(S3Boto3Storage):
-    location = 'private'
-    default_acl = 'private'
-    file_overwrite = False
-    custom_domain = False
+class AzureStaticStorage(AzureStorage):
+    account_name = settings.AZURE_ACCOUNT_NAME
+    account_key = settings.AZURE_ACCOUNT_KEY
+    azure_container = 'staticfiles'
+    expiration_secs = None

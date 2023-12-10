@@ -55,20 +55,19 @@ def get_address_info_by_coords(longitude: Decimal, latitude: Decimal, offer_id: 
 
 
 def get_static_map_image_from_mapbox(longitude: Decimal, latitude: Decimal,
-                                     style_id: str = 'streets-v12',
                                      overlay: str = None,
                                      zoom: Decimal = Decimal(5.5),
                                      bearing: int = 0,
                                      pitch: int = 20,
-                                     width: int = 360,
-                                     height: int = 360,
+                                     width: int = 400,
+                                     height: int = 400,
                                      access_token: str = settings.MAPBOX_ACCESS_TOKEN,
                                      ):
     """Get static map from coordinates https://docs.mapbox.com/api/maps/static-images/ """
     if overlay is None:
         overlay = f'pin-s+555555({longitude},{latitude})'  # type and style for marker
 
-    url = f"https://api.mapbox.com/styles/v1/mapbox/{style_id}/static/{overlay}/{longitude},{latitude},{zoom},{bearing},{pitch}/{width}x{height}"
+    url = f"https://api.mapbox.com/styles/v1/kivaschenko/ckhc76knv0dh719m3kngv5z2b/static/{overlay}/{longitude},{latitude},{zoom},{bearing},{pitch}/{width}x{height}"
 
     params = {"access_token": access_token}
     r = requests.get(url, params=params)

@@ -70,8 +70,7 @@ env/
 
 # tests
 
-# staticfiles:w
-static/
+# staticfiles
 mediafiles/
 
 # pycharm

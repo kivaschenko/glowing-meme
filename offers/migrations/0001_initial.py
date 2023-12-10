@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
                 ('geometry_point', django.contrib.gis.db.models.fields.PointField(srid=4326, verbose_name='Location')),
                 ('address', models.TextField(blank=True, max_length=500, null=True)),
                 ('country', models.CharField(blank=True, max_length=255, null=True)),
-                ('mini_map_img', models.FileField(null=True, storage=offers.models.select_storages, upload_to='offer_static_maps')),
+                ('mini_map_img', models.FileField(null=True, upload_to='offer_static_maps')),
                 ('author', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='offers', to=settings.AUTH_USER_MODEL)),
                 ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='offers', to='offers.category')),
             ],

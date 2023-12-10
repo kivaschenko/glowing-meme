@@ -122,39 +122,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-# STATIC_URL = 'static/'
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "refactored_graintrade/static")
-# STATIC_URL = "staticfiles/"
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-# STATICFILES_DIRS = [
-#     BASE_DIR / 'staticfiles',
-# ]
-MEDIA_URL = "/mediafiles/"
-MEDIA_ROOT = BASE_DIR / "mediafiles"
+DEFAULT_FILE_STORAGE = 'refactored_graintrade.storage_backends.AzureMediaStorage'
+STATICFILES_STORAGE = 'refactored_graintrade.storage_backends.AzureStaticStorage'
 
-STORAGES = {
-    "default": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-    },
-    "remote_storage": {
-        "BACKEND": "refactored_graintrade.storage_backends.PublicMediaStorage",
-        "OPTIONS": {
-            "session_profile": '',
-            "access_key": '',
-            "secret_key": '',
-            "region_name": 'nyc3',
-            "endpoint_url": 'https://nyc3.digitaloceanspaces.com',
-        }
-    },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    },
-}
+STATIC_LOCATION = "staticfiles"
+MEDIA_LOCATION = "mediafiles"
+
+AZURE_ACCOUNT_KEY = os.environ.get('AZURE_STORAGE_ACCOUNT_KEY_1')
+AZURE_ACCOUNT_NAME = os.environ.get('AZURE_ACCOUNT_NAME')
+AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
+STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
+MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CACHES = {
@@ -239,31 +220,6 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
 CELERY_RESULT_BACKEND = os.environ.get('CELERY_RESULT_BACKEND')
-
-# AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
-# AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY")
-#
-# AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
-#
-# AWS_S3_ENDPOINT_URL = "https://{}".format(os.environ.get("AWS_S3_ENDPOINT_URL"))
-# AWS_S3_CUSTOM_DOMAIN = os.environ.get("AWS_S3_CUSTOM_DOMAIN")
-# AWS_S3_OBJECT_PARAMETERS = {
-#     "CacheControl": "max-age=86400",
-# }
-# AWS_LOCATION = f"{AWS_STORAGE_BUCKET_NAME}/staticfiles"
-# AWS_DEFAULT_ACL = "public-read"
-#
-# STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-#
-# STATIC_URL = f"{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
-#
-# # public mediafiles settings
-# PUBLIC_MEDIA_LOCATION = f"{AWS_STORAGE_BUCKET_NAME}/mediafiles"
-# MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{PUBLIC_MEDIA_LOCATION}/"
-# DEFAULT_FILE_STORAGE = "core.storage_backends.PublicMediaStorage"
-# # private mediafiles settings
-# PRIVATE_MEDIA_LOCATION = f"{AWS_STORAGE_BUCKET_NAME}/private"
-# PRIVATE_FILE_STORAGE = "core.storage_backends.PrivateMediaStorage"
 
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Graintrade Refactored API',
