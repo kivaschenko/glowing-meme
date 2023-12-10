@@ -1,3 +1,4 @@
+.env
 .gitignore
 .idea/
 docker-compose.yml

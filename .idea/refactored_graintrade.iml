@@ -16,6 +16,9 @@
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/env" />
       <excludeFolder url="file://$MODULE_DIR$/static" />
+      <excludeFolder url="file://$MODULE_DIR$/htmlReport" />
+      <excludeFolder url="file://$MODULE_DIR$/mediafiles" />
+      <excludeFolder url="file://$MODULE_DIR$/refactored_graintrade/static" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

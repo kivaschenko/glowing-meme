@@ -1,4 +1,5 @@
 # https://django-storages.readthedocs.io/en/latest/backends/azure.html
+
 from django.conf import settings
 
 from storages.backends.azure_storage import AzureStorage
