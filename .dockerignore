@@ -1,0 +1,9 @@
+.gitignore
+.idea/
+docker-compose.yml
+mediafiles/
+static/
+htmlReport/
+env/
+README.md
+.run/
