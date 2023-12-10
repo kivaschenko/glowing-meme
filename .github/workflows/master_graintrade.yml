@@ -64,4 +64,4 @@ jobs:
         with:
           app-name: 'graintrade'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0942FCA7F2D844AAB0FAB95C452E85C0 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0F93EF6D663646A1B76C70CAAA0B379A }}
