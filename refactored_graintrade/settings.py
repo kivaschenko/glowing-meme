@@ -1,25 +1,31 @@
 import os
 from pathlib import Path
 
+# from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-dotenv_path = Path(__file__).resolve().parent.parent / '.env'
-load_dotenv(dotenv_path=dotenv_path)
+# dotenv_path = Path(__file__).resolve().parent.parent / '.env'
+# load_dotenv(dotenv_path=dotenv_path)
 
 DEBUG = True
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# Configure Postgres database for local development
-#   Set these environment variables in the .env file for this project.
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DBNAME'),
-        'HOST': os.environ.get('DBHOST'),
-        'USER': os.environ.get('DBUSER'),
-        'PASSWORD': os.environ.get('DBPASS'),
-    }
+    "default": {
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "NAME": os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get('DB_HOST', 'localhost'),
+        "PORT": 5432,
+    },
+    "other": {
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "NAME": "other",
+        "USER": "geodjango",
+    },
 }
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
@@ -35,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.gis',
     # 3rd parties
     'rest_framework',
     'rest_framework_simplejwt',
@@ -66,7 +73,10 @@ ROOT_URLCONF = 'refactored_graintrade.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [
+            os.path.join(BASE_DIR / 'templates'),
+        ]
+        ,
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,7 +131,6 @@ MEDIA_LOCATION = "mediafiles"
 
 AZURE_ACCOUNT_KEY = os.environ.get('AZURE_STORAGE_ACCOUNT_KEY_1')
 AZURE_ACCOUNT_NAME = os.environ.get('AZURE_ACCOUNT_NAME')
-
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
@@ -129,6 +138,15 @@ MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": os.environ.get('CACHES_LOCATION'),
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
+        "KEY_PREFIX": os.environ.get('CACHES_KEY_PREFIX'),
+    },
+}
 
 # Logger
 LOGGING = {

@@ -3,10 +3,18 @@
 import os
 import sys
 
+from dotenv import load_dotenv
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'refactored_graintrade.settings')
+    # If WEBSITE_HOSTNAME is defined as an environment variable, then we're running on Azure App Service
+    # Only for local development - load environment variable from the .env file
+    if 'WEBSITE_HOSTNAME' not in os.environ:
+        print("Loading environment variable for .env file")
+        load_dotenv('./.env')
+
+    settings_module = "refactored_graintrade.production" if os.environ.get('WEBSITE_HOSTNAME', False) else "refactored_graintrade.settings"
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
