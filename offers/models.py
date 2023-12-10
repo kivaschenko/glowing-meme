@@ -2,8 +2,8 @@ import logging
 from datetime import datetime, timedelta
 
 from django.contrib.auth.models import User
-from django.db import models
-from django.conf import settings
+from django.contrib.gis.db import models
+
 
 logger = logging.Logger(__name__)
 

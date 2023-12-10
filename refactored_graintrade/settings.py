@@ -3,10 +3,12 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '111b8049c47256e9f728a85809afcba1090157aa154c1779c6244d050321ef8d'
-# SECURITY WARNING: don't run with debug turned on in production!
+dotenv_path = Path(__file__).resolve().parent.parent / '.env'
+load_dotenv(dotenv_path=dotenv_path)
+
 DEBUG = True
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # Configure Postgres database for local development
 #   Set these environment variables in the .env file for this project.
@@ -20,9 +22,11 @@ DATABASES = {
     }
 }
 
-SITE_ID = 1
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
-SITE_HOST = os.environ.get('SITE_HOST')
+
+if 'CODESPACE_NAME' in os.environ:
+    CSRF_TRUSTED_ORIGINS = [f'https://{os.getenv("CODESPACE_NAME")}-8000.{os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")}']
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -33,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 3rd parties
     'rest_framework',
-    # 'rest_framework_simplejwt',
+    'rest_framework_simplejwt',
     'rest_framework_gis',
     'dotenv',
     "celery",
@@ -115,14 +119,15 @@ STATICFILES_STORAGE = 'refactored_graintrade.storage_backends.AzureStaticStorage
 STATIC_LOCATION = "staticfiles"
 MEDIA_LOCATION = "mediafiles"
 
-AZURE_ACCOUNT_NAME = "csb100320031c4ce7be"
+AZURE_ACCOUNT_KEY = os.environ.get('AZURE_STORAGE_ACCOUNT_KEY_1')
+AZURE_ACCOUNT_NAME = os.environ.get('AZURE_ACCOUNT_NAME')
+
 AZURE_CUSTOM_DOMAIN = f'{AZURE_ACCOUNT_NAME}.blob.core.windows.net'
 STATIC_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{STATIC_LOCATION}/'
 MEDIA_URL = f'https://{AZURE_CUSTOM_DOMAIN}/{MEDIA_LOCATION}/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Logger
@@ -168,14 +173,14 @@ MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoia2l2YXNjaGVua28iLCJhIjoiY2xva2dweG41MjR0aDJxbW
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    #     # 'rest_framework.permissions.IsAuthenticated',
-    #     # 'rest_framework_simplejwt.authentication.JWTAuthentication',
-    # ],
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     # 'rest_framework_simplejwt.authentication.JWTAuthentication',
-    # ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 # Celery Configuration Options
