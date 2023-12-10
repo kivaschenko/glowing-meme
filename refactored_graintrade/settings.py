@@ -8,10 +8,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 dotenv_path = Path(__file__).resolve().parent.parent / '.env'
 load_dotenv(dotenv_path=dotenv_path)
 
-DEBUG = os.environ.get("DEBUG")
+DEBUG = True
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-# SECURITY WARNING: don't run with debug turned on in production!
 
 DATABASES = {
     "default": {
@@ -29,9 +28,11 @@ DATABASES = {
     },
 }
 
-SITE_ID = 1
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
-SITE_HOST = os.environ.get('SITE_HOST')
+
+if 'CODESPACE_NAME' in os.environ:
+    CSRF_TRUSTED_ORIGINS = [f'https://{os.getenv("CODESPACE_NAME")}-8000.{os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")}']
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     # 3rd parties
     'rest_framework',
-    # 'rest_framework_simplejwt',
+    'rest_framework_simplejwt',
     'rest_framework_gis',
     'dotenv',
     "celery",
@@ -182,12 +183,6 @@ LOGGING = {
 LOGOUT_REDIRECT_URL = "home"
 LOGIN_REDIRECT_URL = "home"
 
-
-# TIME_ZONE = "America/New_York"
-# SITE_HOST = "https://some-production-domain.com"
-
-# CSRF_TRUSTED_ORIGINS = ["https://*", "http://*/"]
-
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 # Mapbox
@@ -196,21 +191,21 @@ MAPBOX_ACCESS_TOKEN = "pk.eyJ1Ijoia2l2YXNjaGVua28iLCJhIjoiY2xva2dweG41MjR0aDJxbW
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
-    # 'DEFAULT_PERMISSION_CLASSES': [
-    #     'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
-    #     # 'rest_framework.permissions.IsAuthenticated',
-    #     # 'rest_framework_simplejwt.authentication.JWTAuthentication',
-    # ],
-    # 'DEFAULT_AUTHENTICATION_CLASSES': [
-    #     # 'rest_framework_simplejwt.authentication.JWTAuthentication',
-    # ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 # Celery Configuration Options
 CELERY_IMPORTS = (
     "offers.tasks",
 )
-CELERY_TIMEZONE = "Europe/Kyiv"
+CELERY_TIMEZONE = "UTC"
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_CACHE_BACKEND = 'default'
