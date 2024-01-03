@@ -1,8 +1,8 @@
 # Database
 DB_NAME=postgres
-DB_USER=admin
-DB_PASSWORD=112358
-DB_HOST=localhost
+DB_USER=grain_admin_db
+DB_PASSWORD=M4X1mu$F1rst
+DB_HOST=graintradedb.postgres.database.azure.com
 
 # PgAdmin
 PGADMIN_EMAIL=admin@admin.com

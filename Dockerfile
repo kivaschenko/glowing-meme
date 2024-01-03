@@ -5,8 +5,10 @@ FROM python:3.10.12
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# GDAL
+RUN  sudo apt-get install binutils libproj-dev gdal-bin
 # Set work directory
-WORKDIR /code
+WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt .
@@ -14,10 +16,10 @@ RUN pip install --upgrade pip setuptools
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy project
-COPY . /code/
+COPY . /app/
 
 # run entrypoint.sh
-ENTRYPOINT ["/code/entrypoint.sh"]
+ENTRYPOINT ["/app/entrypoint.sh"]
 
 EXPOSE 8000
 CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]

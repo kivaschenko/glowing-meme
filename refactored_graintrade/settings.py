@@ -1,16 +1,16 @@
 import os
 from pathlib import Path
 
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# dotenv_path = Path(__file__).resolve().parent.parent / '.env'
-# load_dotenv(dotenv_path=dotenv_path)
+dotenv_path = Path(__file__).resolve().parent.parent / '.env'
+load_dotenv(dotenv_path=dotenv_path)
 
 DEBUG = True
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-ij*e%-3@)7@bzlw9p8fc&m(yg-*m0azwj+lrxkwj6se6f2=9=8'
 
 DATABASES = {
     "default": {
@@ -19,7 +19,7 @@ DATABASES = {
         "USER": os.environ.get("DB_USER"),
         "PASSWORD": os.environ.get("DB_PASSWORD"),
         "HOST": os.environ.get('DB_HOST', 'localhost'),
-        "PORT": 5432,
+        "PORT": 54321,
     },
     "other": {
         "ENGINE": "django.contrib.gis.db.backends.postgis",
@@ -29,9 +29,6 @@ DATABASES = {
 }
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
-
-if 'CODESPACE_NAME' in os.environ:
-    CSRF_TRUSTED_ORIGINS = [f'https://{os.getenv("CODESPACE_NAME")}-8000.{os.getenv("GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN")}']
 
 # Application definition
 INSTALLED_APPS = [
