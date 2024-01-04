@@ -32,11 +32,13 @@ class CustomSignupForm(UserCreationForm):
 
 
 class OfferForm(Form):
-    type_offer = ChoiceField(choices=(("buy", "BUY (Куплю)"), ("sell", "SELL (Продам)")), widget=widgets.RadioSelect())
+    type_offer = ChoiceField(choices=(("buy", "BUY (Куплю)"), ("sell", "SELL (Продам)")), widget=widgets.RadioSelect(),
+                             required=True, initial="buy")
     category = ModelChoiceField(queryset=Category.objects.all())
     amount = DecimalField(max_digits=8, decimal_places=2, help_text="amount in metric tons")
     price = DecimalField(max_digits=8, decimal_places=2, help_text="price per 1 metric ton")
-    currency = ChoiceField(choices=(("USD", "USD"), ("UAH", "UAH")), widget=widgets.RadioSelect())
+    currency = ChoiceField(choices=(("USD", "USD"), ("UAH", "UAH")), widget=widgets.RadioSelect(),
+                           required=True, initial="USD")
     terms_delivery = ChoiceField(choices=(("EXW", "EXW - Ex Works (Франко-завод)"),
                                           ("FCA", "FCA - Free Carrier (Франко-перевізник)"),
                                           ("CPT", "CPT - Carriage Paid To (Перевезення оплачено до)"),

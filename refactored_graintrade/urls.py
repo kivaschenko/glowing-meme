@@ -86,17 +86,24 @@ urlpatterns += [
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
 
-# Offers
+# Offers API
 urlpatterns += offer_urlpatterns
 
 # monolith urls
-from offers.views import RegistrationView, OffersListView, CreateOfferView, OfferDetailView
+from offers.views import (
+    RegistrationView,
+    OffersListView,
+    CreateOfferView,
+    OfferDetailView,
+    CategoryListView,
+)
 
 urlpatterns += [
     path("accounts/signup/", RegistrationView.as_view(), name='signup'),
     path("offers-list/", OffersListView.as_view(), name="offers-list"),
     path("create-offer/", CreateOfferView.as_view(), name="create-offer"),
     path("offer-details/<int:pk>/", OfferDetailView.as_view(), name="offer-details"),
+    path("categories-list/", CategoryListView.as_view(), name="categories-list"),
 ]
 
 if settings.DEBUG:

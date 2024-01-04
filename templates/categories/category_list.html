@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row" style="margin-top: 5rem;">
+        <div class="col">
+            <table class="table table-bordered border-secondary">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name EN</th>
+                    <th scope="col">Name UA</th>
+                    <th scope="col">Group</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% if categories %}
+                    {% for category in categories %}
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td>{{ category.category_name }}</td>
+                            <td>{{ category.name_ua }}</td>
+                            <td>{{ category.group }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-6"></div>
+    </div>
+{% endblock %}

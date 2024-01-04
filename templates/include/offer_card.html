@@ -10,9 +10,8 @@
             <li class="list-group-item"><strong>Address: </strong>{{ offer.address }}</li>
             <li class="list-group-item"><strong>Created at: </strong>{{ offer.created_at|date }}</li>
             <li class="list-group-item"><strong>Expired at: </strong>{{ offer.expired_at|date }}</li>
+            <li class="list-group-item"><strong>Details: </strong>{% if offer.details %}{{ offer.details }}{% else %}{% endif %}</li>
         </ul>
-        {% if offer.details %}
-            <p class="card-text">{{ offer.details }}{% else %}{% endif %}</p>
         <a href="#" class="btn btn-primary">Send message</a>
     </div>
 </div>

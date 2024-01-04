@@ -6,7 +6,7 @@ from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 
 from .forms import OfferForm, CustomSignupForm
-from .models import Offer
+from .models import Offer, Category
 from .services import create_new_offer
 from .events import NewOfferCreated
 from .bus_messages import handle
@@ -99,3 +99,13 @@ class CreateOfferView(FormView):
 class OfferDetailView(DetailView):
     model = Offer
     context_object_name = 'offer'
+
+
+# ----------
+# Categories
+
+class CategoryListView(ListView):
+    model = Category
+    queryset = Category.objects.all()
+    context_object_name = 'categories'
+    template_name = 'categories/category_list.html'
