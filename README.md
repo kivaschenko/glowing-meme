@@ -65,5 +65,9 @@ celery -A refactored_graintrade worker -l INFO
 
 ***and open in browser ->*** [http://localhost:8000/](http://localhost:8000/)
 
+### Tests
+```
+python3 manage.py test --verbosity=2 --keepdb
+```
 ## Production mode
 

@@ -10,7 +10,7 @@ load_dotenv(dotenv_path=dotenv_path)
 
 DEBUG = True
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ij*e%-3@)7@bzlw9p8fc&m(yg-*m0azwj+lrxkwj6se6f2=9=8'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 DATABASES = {
     "default": {
@@ -72,8 +72,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join(BASE_DIR / 'templates'),
-        ]
-        ,
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,6 +122,10 @@ USE_TZ = True
 DEFAULT_FILE_STORAGE = 'refactored_graintrade.storage_backends.AzureMediaStorage'
 STATICFILES_STORAGE = 'refactored_graintrade.storage_backends.AzureStaticStorage'
 
+if DEBUG is True:
+    MEDIA_URL = "/mediafiles/"
+    MEDIA_ROOT = BASE_DIR / "mediafiles"
+
 STATIC_LOCATION = "staticfiles"
 MEDIA_LOCATION = "mediafiles"
 
@@ -150,7 +153,7 @@ LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
-        "default": {'format': '[%(asctime)s] %(name)-12s %(levelname)-8s %(message)s',},
+        "default": {'format': '[%(asctime)s] %(name)-12s %(levelname)-8s %(message)s'},
         "simple": {"format": "%(levelname)s %(message)s"},
     },
     "handlers": {
@@ -207,7 +210,6 @@ CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 CELERY_CACHE_BACKEND = 'default'
 CELERY_RESULT_EXTENDED = True
-CELERY_TASK_TRACK_STARTED = True
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')

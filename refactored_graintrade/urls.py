@@ -36,7 +36,7 @@ from offers.urls import urlpatterns as offer_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("home/", TemplateView.as_view(template_name="home.html"), name="home"),
+    path("", TemplateView.as_view(template_name="home.html"), name="home"),
     # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("accounts/", include("django.contrib.auth.urls")),
@@ -82,7 +82,7 @@ router.register(r"users", UserViewSet)
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns += [
-    path("", include(router.urls)),
+    path("api/v1/", include(router.urls)),
     path("api-auth/", include("rest_framework.urls", namespace="rest_framework")),
 ]
 

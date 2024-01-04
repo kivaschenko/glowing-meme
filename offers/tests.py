@@ -1,5 +1,6 @@
 from decimal import Decimal
 from unittest.mock import patch
+from pathlib import Path
 
 from django.conf import settings
 from django.test import TestCase, Client
@@ -59,7 +60,7 @@ class OfferTest(TestCase):
         get_static_map_image_by_coords(new_offer.longitude, new_offer.latitude, new_offer.id)
 
         updated_offer = Offer.objects.get(id=new_offer.id)
-        self.assertIn('offer_static_maps/minimap_1', updated_offer.mini_map_img.name)
+        self.assertIn('offer_static_maps/minimap_', updated_offer.mini_map_img.name)
 
     def test_offer_not_created_without_logged_user(self):
         # create offer

@@ -1,25 +1,21 @@
 # Pull the base image
-FROM python:3.10.12
+FROM python:3.10-bullseye
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+# Update
+RUN apt-get update
 # GDAL
-RUN  sudo apt-get install binutils libproj-dev gdal-bin
+RUN apt-get install -y binutils libgdal-dev
 # Set work directory
-WORKDIR /app
+WORKDIR /app/
 
 # Install dependencies
-COPY requirements.txt .
+COPY requirements.txt /app
 RUN pip install --upgrade pip setuptools
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt --no-cache-dir
 
 # Copy project
 COPY . /app/
-
-# run entrypoint.sh
-ENTRYPOINT ["/app/entrypoint.sh"]
-
-EXPOSE 8000
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]

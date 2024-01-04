@@ -18,21 +18,21 @@ services:
       retries: 5
       start_period: 10s
 
-  app:
-    build: .
-    container_name: django_app
-    env_file:
-      - .env
-    volumes:
-      - django:/volume_app/
-    command:
-      python3 manage.py migrate &&
-      python3 manage.py runserver 8000
-    ports:
-      - 8000:8000
-    depends_on:
-      db:
-        condition: service_healthy
+#  app:
+#    build: .
+#    container_name: django_app
+#    env_file:
+#      - .env
+#    volumes:
+#      - django:/volume_app/
+#    command:
+#      python3 manage.py migrate &&
+#      python3 manage.py runserver 8000
+#    ports:
+#      - 8000:8000
+#    depends_on:
+#      db:
+#        condition: service_healthy
 
   pgadmin:
     container_name: pgadmin
@@ -61,4 +61,4 @@ volumes:
   pgadmin:
   postgres:
   redis:
-  django:
+#  django:
