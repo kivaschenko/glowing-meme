@@ -37,6 +37,7 @@ class Address(models.Model):
     latitude = models.FloatField(blank=True, null=True)
     longitude = models.FloatField(blank=True, null=True)
     address = models.CharField(max_length=120, blank=True, null=True)
+    region = models.CharField(max_length=120, blank=True, null=True)
     country = models.CharField(max_length=120, blank=True, null=True)
     mini_map = models.ImageField(upload_to='address_static_maps/', blank=True, null=True)
 
