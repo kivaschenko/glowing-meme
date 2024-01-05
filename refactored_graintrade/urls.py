@@ -96,6 +96,7 @@ from offers.views import (
     CreateOfferView,
     OfferDetailView,
     CategoryListView,
+    CategoryDetailView,
 )
 
 urlpatterns += [
@@ -104,6 +105,7 @@ urlpatterns += [
     path("create-offer/", CreateOfferView.as_view(), name="create-offer"),
     path("offer-details/<int:pk>/", OfferDetailView.as_view(), name="offer-details"),
     path("categories-list/", CategoryListView.as_view(), name="categories-list"),
+    path("category-detail/<int:pk>/", CategoryDetailView.as_view(), name="category-detail"),
 ]
 
 if settings.DEBUG:

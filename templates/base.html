@@ -29,6 +29,8 @@
         <link rel="manifest" href="{% static 'favicon_io/site.webmanifest' %}">
     </head>
   <body style="margin-top: 50px; background-color: beige;">
+    <main>
+        
       {% block header %}
           <!-- Navbar -->
           {% include 'include/navbar.html' %}
@@ -41,5 +43,6 @@
             {% block content %}
             {% endblock content %}
         </div>
+    </main>
   </body>
 </html>

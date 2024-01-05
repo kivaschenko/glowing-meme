@@ -15,10 +15,13 @@
       <div class="offcanvas-body">
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{% url 'offers-list' %}">Offers List</a>
+            <a class="nav-link" href="{% url 'offers-list' %}">Offers List</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'create-offer' %}">Create Offer</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'categories-list' %}">Categories List</a>
           </li>
           <hr>
             {% if user.is_authenticated %}

@@ -23,6 +23,11 @@ def create_new_offer(user_id: int = None, category_id: int = None, type_offer: s
     return obj
 
 
+def get_offers_by_category_id(category_id: int):
+    queryset = Offer.objects.filter(category_id=category_id)
+    return queryset
+
+
 # ---------------
 # Mapbox services
 def get_address_from_mapbox(longitude: Decimal, latitude: Decimal, endpoint: str = 'mapbox.places',

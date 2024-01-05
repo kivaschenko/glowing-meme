@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import OfferForm, CustomSignupForm
 from .models import Offer, Category
-from .services import create_new_offer
+from .services import create_new_offer, get_offers_by_category_id
 from .events import NewOfferCreated
 from .bus_messages import handle
 
@@ -43,6 +43,7 @@ class OffersListView(ListView):
     model = Offer
     queryset = Offer.actual.all()
     context_object_name = 'offers'
+    paginate_by = 10
 
 
 @method_decorator(login_required, name='dispatch')
@@ -109,3 +110,20 @@ class CategoryListView(ListView):
     queryset = Category.objects.all()
     context_object_name = 'categories'
     template_name = 'categories/category_list.html'
+
+class CategoryDetailView(DetailView):
+    model = Category
+    context_object_name = 'category'
+    extra_context = {}
+    template_name = 'categories/category_detail.html'
+    def get_context_data(self, **kwargs):
+        """Insert the single object into the context dict."""
+        context = {}
+        if self.object:
+            context["object"] = self.object
+            context_object_name = self.get_context_object_name(self.object)
+            if context_object_name:
+                context[context_object_name] = self.object
+            self.extra_context['offers'] = get_offers_by_category_id(category_id=self.object.id)
+        context.update(kwargs)
+        return super().get_context_data(**context)
