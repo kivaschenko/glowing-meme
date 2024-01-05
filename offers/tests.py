@@ -50,6 +50,7 @@ class OfferTest(TestCase):
         self.assertEqual(new_offer.type_offer, 'sell')
         self.assertEqual(new_offer.amount, Decimal('1000.00'))
         self.assertEqual(new_offer.details, 'protein - 33.25%, garbage - 1.2%')
+        self.assertEqual(new_offer.geometry_point, "SRID=4326;POINT (10.01686 53.403045)")
 
         get_address_info_by_coords(new_offer.longitude, new_offer.latitude, new_offer.id)
 

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "storages",
     # local
     'offers.apps.OffersConfig',
+    'accounts.apps.AccountsConfig',
 ]
 
 MIDDLEWARE = [

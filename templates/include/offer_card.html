@@ -8,6 +8,8 @@
             <li class="list-group-item"><strong>Amount: </strong>{{ offer.amount }} metric tons</li>
             <li class="list-group-item"><strong>Terms delivery: </strong>{{ offer.terms_delivery }}</li>
             <li class="list-group-item"><strong>Address: </strong>{{ offer.address }}</li>
+            <li class="list-group-item"><strong>Region: </strong>{{ offer.region }}</li>
+            <li class="list-group-item"><strong>Country: </strong>{{ offer.country }}</li>
             <li class="list-group-item"><strong>Created at: </strong>{{ offer.created_at|date }}</li>
             <li class="list-group-item"><strong>Expired at: </strong>{{ offer.expired_at|date }}</li>
             <li class="list-group-item"><strong>Details: </strong>{% if offer.details %}{{ offer.details }}{% else %}{% endif %}</li>

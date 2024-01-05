@@ -1,12 +1,14 @@
 from rest_framework.serializers import ModelSerializer
+from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
 from .models import Category, Offer
 
 
-class OfferSerializer(ModelSerializer):
+class OfferSerializer(GeoFeatureModelSerializer):
     class Meta:
         model = Offer
         fields = "__all__"
+        geo_field = "geometry_point"
 
 
 class CategorySerializer(ModelSerializer):

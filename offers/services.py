@@ -16,8 +16,10 @@ logger = logging.Logger(__name__)
 def create_new_offer(user_id: int = None, category_id: int = None, type_offer: str = "", price: Decimal = None, currency: str = "",
                      amount: Decimal = None, terms_delivery: str = "", latitude: Decimal = None, longitude: Decimal = None, details: str = ""):
     # TODO: Add logging here
-    obj = Offer(author_id=user_id, category_id=category_id, type_offer=type_offer, price=price, currency=currency, amount=amount, terms_delivery=terms_delivery,
-                latitude=latitude, longitude=longitude, details=details)
+    obj = Offer(author_id=user_id, category_id=category_id, type_offer=type_offer, price=price, currency=currency,
+                amount=amount, terms_delivery=terms_delivery,
+                latitude=latitude, longitude=longitude, details=details,
+                geometry_point=fromstr(f"POINT({longitude} {latitude})", srid=4326))
     obj.save()
     logger.info(f'Created a new Offer: {obj}')
     return obj
@@ -52,6 +54,7 @@ def get_address_info_by_coords(longitude: Decimal, latitude: Decimal, offer_id: 
         logger.info(f"Start getting address for Offer id={offer_id}.")
         offer = Offer.objects.get(id=offer_id)
         offer.address = response['features'][0]['place_name']
+        offer.region = response['features'][-2]['text']
         offer.country = response['features'][-1]['text']
         offer.save()
         logger.info(f'Offers address updated successfully: {offer}.')
@@ -61,7 +64,7 @@ def get_address_info_by_coords(longitude: Decimal, latitude: Decimal, offer_id: 
 
 def get_static_map_image_from_mapbox(longitude: Decimal, latitude: Decimal,
                                      overlay: str = None,
-                                     zoom: Decimal = Decimal(5.5),
+                                     zoom: Decimal = Decimal(9.0),
                                      bearing: int = 0,
                                      pitch: int = 20,
                                      width: int = 400,
