@@ -98,12 +98,20 @@ from offers.views import (
     CategoryListView,
     CategoryDetailView,
 )
+from accounts.views import (
+    ProfileUpdateView,
+    ProfileDetailView,
+)
 
 urlpatterns += [
     path("accounts/signup/", RegistrationView.as_view(), name='signup'),
+    path("accounts/update-profile/<int:pk>/", ProfileUpdateView.as_view(), name='update-profile'),
+    path("accounts/profile/<int:user_id>/", ProfileDetailView.as_view(), name='profile'),
+    # offers
     path("offers-list/", OffersListView.as_view(), name="offers-list"),
     path("create-offer/", CreateOfferView.as_view(), name="create-offer"),
     path("offer-details/<int:pk>/", OfferDetailView.as_view(), name="offer-details"),
+    # categories
     path("categories-list/", CategoryListView.as_view(), name="categories-list"),
     path("category-detail/<int:pk>/", CategoryDetailView.as_view(), name="category-detail"),
 ]

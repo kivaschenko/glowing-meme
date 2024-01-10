@@ -3,17 +3,30 @@
     <div class="card-body">
         <h5 class="card-title">{{ offer }}</h5>
         <ul class="list-group list-group-flush">
-            <li class="list-group-item"><strong>Type: </strong>{{ offer.type_offer }}</li>
+            <li class="list-group-item"><strong>Type: </strong>
+                {% if offer.type_offer == 'sell' %}
+                    <button class="btn btn-danger btn-sm">{{ offer.type_offer|upper }}</button> 
+                {% else %}
+                <button class="btn btn-info btn-sm">{{ offer.type_offer|upper }}</button>
+                {% endif %}
+            </li>
             <li class="list-group-item"><strong>Price: </strong>{{ offer.price }} {{ offer.currency }}</li>
             <li class="list-group-item"><strong>Amount: </strong>{{ offer.amount }} metric tons</li>
             <li class="list-group-item"><strong>Terms delivery: </strong>{{ offer.terms_delivery }}</li>
-            <li class="list-group-item"><strong>Address: </strong>{{ offer.address }}</li>
             <li class="list-group-item"><strong>Region: </strong>{{ offer.region }}</li>
             <li class="list-group-item"><strong>Country: </strong>{{ offer.country }}</li>
             <li class="list-group-item"><strong>Created at: </strong>{{ offer.created_at|date }}</li>
             <li class="list-group-item"><strong>Expired at: </strong>{{ offer.expired_at|date }}</li>
             <li class="list-group-item"><strong>Details: </strong>{% if offer.details %}{{ offer.details }}{% else %}{% endif %}</li>
         </ul>
-        <a href="#" class="btn btn-primary">Send message</a>
+        <hr class="my-0">
+        <a href="{% url 'profile' offer.author.pk %}" class="btn btn-primary btn-sm my-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+              <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+            </svg> User Profile</a>
+        <a href="#" class="btn btn-primary btn-sm my-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg> Message</a>
     </div>
 </div>

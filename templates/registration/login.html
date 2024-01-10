@@ -15,7 +15,8 @@
                 </form>
                 {# Assumes you set up the password_reset view in your URLconf #}
                 <p style="margin-top: 20px; position: relative;"><a href="{% url 'password_reset' %}">Lost password?</a></p>
-                <p style="margin-top: 20px; position: relative;"><a href="{% url 'signup' %}">Don't have account? Register free a new here.</a></p>
+                <p>Don't have account?</p>
+                <p style="margin-top: 20px; position: relative;"><a href="{% url 'signup' %}" class="btn btn-success"> Register free a new here.</a></p>
             </div>
         </div>
     </div>

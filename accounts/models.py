@@ -2,14 +2,18 @@ from django.db import models
 from django.contrib.gis.db import models as gis_models
 from django.contrib.auth.models import User
 
+from PIL import Image
+
 from offers.models import Category
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    company = models.CharField(max_length=120, blank=True, null=True)
-    phone_number = models.CharField(max_length=15, blank=True, null=True)
-    image = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile', primary_key=True)
+    full_name = models.CharField(max_length=150, blank=True, null=True, default='Full name')
+    company = models.CharField(max_length=120, blank=True, null=True, default='Company name')
+    phone = models.CharField(max_length=15, blank=True, null=True)
+    avatar = models.ImageField(upload_to='profile_avatars/', default='profile_avatars/default-avatar.jpg',
+                               blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     description = models.TextField(max_length=600, blank=True, null=True)
 
@@ -18,6 +22,21 @@ class Profile(models.Model):
 
     def __repr__(self):
         return f"<Profile(user_id={self.user_id} company={self.company}...)>"
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('profile', kwargs={'user_id': self.user_id})
+
+    # def save(self, *args, **kwargs):
+    #     super().save()
+    #
+    #     img = Image.open(self.image.path)  # Open image
+    #
+    #     # resize image
+    #     if img.height > 300 or img.width > 300:
+    #         output_size = (300, 300)
+    #         img.thumbnail(output_size)  # Resize image
+    #         img.save(self.image.path)  # Save it again and override the larger image
 
 
 class Interest(models.Model):
@@ -49,4 +68,3 @@ class Address(models.Model):
 
     def __repr__(self):
         return f"<Address(user={self.user} name={self.name}, latitude={self.latitude} longitude={self.longitude})>"
-

@@ -10,18 +10,18 @@
 
 {% block content %}
   <div class="row" style="margin-top: 5rem;">
-    <div class="col">
+    <div class="col-lg-6 col-md-6">
       <h2>Offers & Analytics</h2>
         <ul class="list-group">
             <li class="list-group-item"><a href="{% url 'offers-list' %}">Offers List</a></li>
             <li class="list-group-item"><a href="{% url 'create-offer' %}">Create Offer</a></li>
         </ul>
+    <h2>Categories</h2>
+    <ul class="list-group">
+        <li class="list-group-item"><a href="{% url 'categories-list' %}">Categories List</a> </li>
+    </ul>
     </div>
     <div class="col">
-        <h2>Categories</h2>
-        <ul class="list-group">
-            <li class="list-group-item"><a href="{% url 'categories-list' %}">Categories List</a> </li>
-        </ul>
     </div>
   </div>
 {% endblock %}

@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 
 from .forms import OfferForm, CustomSignupForm
 from .models import Offer, Category
@@ -18,7 +19,7 @@ from .bus_messages import handle
 class RegistrationView(FormView):
     template_name = 'registration/signup.html'
     form_class = CustomSignupForm
-    success_url = '/home/'
+    success_url = reverse_lazy('home')
     extra_context = {}
 
     def post(self, request, *args, **kwargs):
@@ -43,7 +44,7 @@ class OffersListView(ListView):
     model = Offer
     queryset = Offer.actual.all()
     context_object_name = 'offers'
-    paginate_by = 10
+    # paginate_by = 10
 
 
 @method_decorator(login_required, name='dispatch')
