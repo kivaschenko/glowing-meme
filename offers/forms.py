@@ -5,30 +5,10 @@ from django.forms import (
     ModelChoiceField,
     widgets,
     ChoiceField,
-    EmailField,
 )
 from django.core import validators
-from django.contrib.auth.forms import UserCreationForm, UsernameField
-from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
 
 from .models import Category
-
-
-class CustomSignupForm(UserCreationForm):
-    email = EmailField(widget=widgets.EmailInput())
-
-    class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
-        field_classes = {"username": UsernameField}
-
-    def clean_email(self):
-        email = self.cleaned_data.get("email")
-        if email and self._meta.model.objects.filter(email__iexact=email).exists():
-            self._update_errors(ValidationError({"email": self.instance.unique_error_message(self._meta.model, ["email"])}))
-        else:
-            return email
 
 
 class OfferForm(Form):

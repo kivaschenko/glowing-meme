@@ -91,7 +91,6 @@ urlpatterns += offer_urlpatterns
 
 # monolith urls
 from offers.views import (
-    RegistrationView,
     OffersListView,
     CreateOfferView,
     OfferDetailView,
@@ -99,6 +98,7 @@ from offers.views import (
     CategoryDetailView,
 )
 from accounts.views import (
+    RegistrationView,
     ProfileUpdateView,
     ProfileDetailView,
 )

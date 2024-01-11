@@ -2,39 +2,13 @@ from django.views.generic import ListView, DeleteView, DetailView
 from django.views.generic.edit import FormView
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
-from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.urls import reverse_lazy
 
-from .forms import OfferForm, CustomSignupForm
+from .forms import OfferForm
 from .models import Offer, Category
 from .services import create_new_offer, get_offers_by_category_id
 from .events import NewOfferCreated
 from .bus_messages import handle
-
-
-# -----------------
-# BUILT IN ACCOUNTS
-
-class RegistrationView(FormView):
-    template_name = 'registration/signup.html'
-    form_class = CustomSignupForm
-    success_url = reverse_lazy('home')
-    extra_context = {}
-
-    def post(self, request, *args, **kwargs):
-        """
-        Handle POST requests: instantiate a form instance with the passed
-        POST variables and then check if it's valid.
-        """
-        form = self.get_form()
-        if form.is_valid():
-            user = form.save()
-            self.extra_context.update({'messages': 'You have registered successfully!'})
-            login(request, user)
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
 
 
 # ------
