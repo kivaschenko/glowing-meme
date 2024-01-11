@@ -26,17 +26,17 @@ def create_new_offer(user_id: int = None, category_id: int = None, type_offer: s
 
 
 def get_offers_by_category_id(category_id: int):
-    queryset = Offer.objects.filter(category_id=category_id)
+    queryset = Offer.actual.filter(category_id=category_id)
     return queryset
 
 
 def get_offers_by_type_offer_and_category_id(type_offer: str, category_id: int):
-    queryset = Offer.objects.filter(type_offer=type_offer, category_id=category_id, is_active=True)
+    queryset = Offer.actual.filter(type_offer=type_offer, category_id=category_id, is_active=True)
     return queryset
 
 
 def get_offers_by_author_id(author_id: int):
-    queryset = Offer.objects.filter(author_id=author_id)
+    queryset = Offer.actual.filter(author_id=author_id)
     return queryset
 
 # ---------------
