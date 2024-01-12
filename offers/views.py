@@ -16,7 +16,7 @@ from .bus_messages import handle
 
 class OffersListView(ListView):
     model = Offer
-    queryset = Offer.actual.all()
+    queryset = Offer.actual.all()[:100]
     context_object_name = 'offers'
     # paginate_by = 10
 

@@ -70,5 +70,5 @@ class Offer(models.Model):
         return f"<Offer(id={self.id} title={self.category}...)>"
 
     def save(self, *args, **kwargs):
-        self.expired_at = datetime.now() + timedelta(days=30)
+        self.expired_at = datetime.now() + timedelta(days=7)
         super().save(*args, **kwargs)
