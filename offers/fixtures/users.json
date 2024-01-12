@@ -3,18 +3,60 @@
   "model": "auth.user",
   "pk": 1,
   "fields": {
-    "password": "pbkdf2_sha256$600000$6i6Tm68jO0rm86GFrFpVuI$Z7m5XXggXJyna22GpOO9BEMCxWEoUwUbnJ/odptr/0Y=",
-    "last_login": null,
-    "is_superuser": true,
-    "username": "dev",
+    "password": "pbkdf2_sha256$600000$8IRKO8KgAvwNjl16GOvv0a$jF6Rk0nuRT/SvyUQH8ha7SJzUjGLLIds5q+h2azxIrc=",
+    "last_login": "2024-01-12T13:20:51.818Z",
+    "is_superuser": false,
+    "username": "teodor",
     "first_name": "",
     "last_name": "",
-    "email": "dev@example.com",
-    "is_staff": true,
+    "email": "teo@yahoo.com",
+    "is_staff": false,
     "is_active": true,
-    "date_joined": "2023-11-11T19:37:19.453Z",
+    "date_joined": "2024-01-12T13:20:51.623Z",
     "groups": [],
     "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$1ur1GcevWekzlwkFENDwnZ$PrP3p0FtZazoonZn37nnpdDWDWySLZbmYw45ak0YDMk=",
+    "last_login": "2024-01-12T14:02:16.237Z",
+    "is_superuser": false,
+    "username": "overseastrader",
+    "first_name": "",
+    "last_name": "",
+    "email": "overseas-company@example.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2024-01-12T14:02:16.022Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 1,
+  "fields": {
+    "full_name": "Teodor Britcat",
+    "company": "Test Grain Company",
+    "phone": "+380441235813",
+    "avatar": "profile_avatars/default-avatar.jpg",
+    "website": "http://www.yahoo.com",
+    "description": ""
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 2,
+  "fields": {
+    "full_name": "Anonimus Trader",
+    "company": "Overseas Trade Company LLC",
+    "phone": "+44 235 81321",
+    "avatar": "profile_avatars/default-avatar.jpg",
+    "website": "http://www.yahoo.com",
+    "description": ""
   }
 }
 ]
