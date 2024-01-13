@@ -155,13 +155,19 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "default": {'format': '[%(asctime)s] %(name)-12s %(levelname)-8s %(message)s'},
-        "simple": {"format": "%(levelname)s %(message)s"},
+        "simple": {"format": "[%(asctime)s] %(levelname)s %(message)s"},
     },
     "handlers": {
         "log_to_stdout": {
             "level": "DEBUG",
             "class": "logging.StreamHandler",
             "formatter": "default",
+        },
+        "log_to_file": {
+            "level": "INFO",
+            "class": "logging.handlers.RotatingFileHandler",
+            "formatter": "simple",
+            "filename": os.environ.get('LOGGING_FILE'),
         },
     },
     "loggers": {

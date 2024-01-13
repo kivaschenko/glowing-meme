@@ -72,3 +72,18 @@ class Offer(models.Model):
     def save(self, *args, **kwargs):
         self.expired_at = datetime.now() + timedelta(days=7)
         super().save(*args, **kwargs)
+
+
+class ActualCountry(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    offers_count = models.IntegerField(default=0)
+
+    class Meta:
+        ordering = ['name']
+        db_table = 'actual_countries'
+
+    def __str__(self):
+        return f"{self.name}"
+
+    def __repr__(self):
+        return f"<ActualCountry(name={self.name}, offers_count={self}"

@@ -6,8 +6,13 @@ from django.conf import settings
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
-from .models import Offer
-from .services import get_address_info_by_coords, get_static_map_image_by_coords
+from .models import Offer, ActualCountry
+from .services import (
+    get_address_info_by_coords,
+    get_static_map_image_by_coords,
+    get_count_offers_by_country_name,
+    update_actual_country_record,
+)
 from .mocks import *
 
 
@@ -42,7 +47,7 @@ class OfferTest(TestCase):
             details='protein - 33.25%, garbage - 1.2%'
         )
         # log in
-        self.client.login(username='dev', password='235813')
+        self.client.login(username='teodor', password='Teodorathome11')
 
         res = self.client.post("/create-offer/", data=form_data)
         self.assertEqual(res.status_code, 302)
@@ -62,6 +67,16 @@ class OfferTest(TestCase):
 
         updated_offer = Offer.objects.get(id=new_offer.id)
         self.assertIn('offer_static_maps/minimap_', updated_offer.mini_map_img.name)
+
+        # check actual country updated
+        count = get_count_offers_by_country_name(updated_offer.country)
+        self.assertEqual(1, count)
+
+        update_actual_country_record(updated_offer.country, count)
+
+        actual_country = ActualCountry.objects.get(name=updated_offer.country)
+        self.assertEqual(actual_country.name, 'Germany')
+        self.assertEqual(actual_country.offers_count, 1)
 
     def test_offer_not_created_without_logged_user(self):
         # create offer

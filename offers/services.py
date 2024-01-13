@@ -6,7 +6,7 @@ from django.conf import settings
 from django.core.files.base import File, ContentFile
 from django.contrib.gis.geos import fromstr
 
-from .models import Offer
+from .models import Offer, ActualCountry
 
 logger = logging.Logger(__name__)
 
@@ -36,8 +36,26 @@ def get_offers_by_type_offer_and_category_id(type_offer: str, category_id: int):
 
 
 def get_offers_by_author_id(author_id: int):
-    queryset = Offer.actual.filter(author_id=author_id)
+    queryset = Offer.objects.filter(author_id=author_id)
     return queryset
+
+
+def get_offer_by_id(offer_id: int):
+    queryset = Offer.objects.get(id=offer_id)
+    return queryset
+
+
+def get_count_offers_by_country_name(country_name: str):
+    count = Offer.actual.filter(country=country_name).count()
+    return count
+
+
+def update_actual_country_record(country_name: str, count: int):
+    actual_country, _ = ActualCountry.objects.get_or_create(name=country_name)
+    actual_country.offers_count = count
+    actual_country.save()
+    logger.info(f'Updated country record for {actual_country}')
+
 
 # ---------------
 # Mapbox services

@@ -76,3 +76,6 @@ mediafiles/
 # pycharm
 .idea/
 htmlReport/
+
+# log files
+log_files/

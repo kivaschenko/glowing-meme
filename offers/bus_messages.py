@@ -22,6 +22,10 @@ def update_mini_map(event: events.NewOfferCreated):
     services.get_static_map_image_by_coords(event.longitude, event.latitude, event.offer_id)
 
 
+def update_actual_country_count(event: events.NewOfferCreated):
+    tasks.update_actual_country_count_for_new_offer(event.offer_id)
+
+
 def send_notification(event: events.Event):
     pass
 
