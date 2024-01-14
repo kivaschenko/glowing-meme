@@ -1,0 +1,32 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$C7qREFZLstAEqfVsikDPmY$VbU1LJN4adzJKldNljd4QTPSggv9ffunruE67t8NaGs=",
+    "last_login": "2024-01-14T13:26:27.737Z",
+    "is_superuser": true,
+    "username": "kivaschenko",
+    "first_name": "Kostiantyn",
+    "last_name": "Ivashchenko",
+    "email": "kivaschenko@protonmail.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2024-01-14T13:24:38.207Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 1,
+  "fields": {
+    "full_name": "Kostiantyn Ivashchenko",
+    "company": "Graintrade.Info",
+    "phone": "+380677550066",
+    "avatar": "profile_avatars/default-avatar.jpg",
+    "website": "https://github.com/kivaschenko",
+    "description": "Owner, developer and admin of the site..."
+  }
+}
+]

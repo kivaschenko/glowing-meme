@@ -18,8 +18,8 @@ from .mocks import *
 
 class OfferTest(TestCase):
     fixtures = [
-        'offers/fixtures/categories.json',
-        'offers/fixtures/users.json',
+        'offers/fixtures/test/categories.json',
+        'offers/fixtures/test/users.json',
     ]
 
     def setUp(self):

@@ -1,0 +1,479 @@
+[
+{
+  "model": "offers.category",
+  "pk": 1,
+  "fields": {
+    "category_name": "Barley",
+    "name_ua": "Ячмінь",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 2,
+  "fields": {
+    "category_name": "Beet molasses",
+    "name_ua": "Меляса бурякова",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 3,
+  "fields": {
+    "category_name": "Buckwheat",
+    "name_ua": "Гречка",
+    "group": "buckwheat"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 4,
+  "fields": {
+    "category_name": "Chick-peas",
+    "name_ua": "Нут",
+    "group": "leguminous"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 5,
+  "fields": {
+    "category_name": "Coriander",
+    "name_ua": "Коріандр",
+    "group": "niche"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 6,
+  "fields": {
+    "category_name": "Corn",
+    "name_ua": "Кукурудза",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 7,
+  "fields": {
+    "category_name": "Corn oil",
+    "name_ua": "Кукурудзяна олія",
+    "group": "oil"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 8,
+  "fields": {
+    "category_name": "Flax",
+    "name_ua": "Льон",
+    "group": "oil"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 9,
+  "fields": {
+    "category_name": "Green peas",
+    "name_ua": "Зелений горошок",
+    "group": "leguminous"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 10,
+  "fields": {
+    "category_name": "Lentil",
+    "name_ua": "Сочевиця",
+    "group": "leguminous"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 11,
+  "fields": {
+    "category_name": "Linseed oil",
+    "name_ua": "Лляна олія",
+    "group": "oil"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 12,
+  "fields": {
+    "category_name": "Lupine",
+    "name_ua": "Люпин",
+    "group": "niche"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 13,
+  "fields": {
+    "category_name": "Millet",
+    "name_ua": "Пшоно",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 14,
+  "fields": {
+    "category_name": "Mustard seeds",
+    "name_ua": "Зерна гірчиці",
+    "group": "niche"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 15,
+  "fields": {
+    "category_name": "Oat flour",
+    "name_ua": "Вівсяне борошно",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 16,
+  "fields": {
+    "category_name": "Oats",
+    "name_ua": "Овес",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 17,
+  "fields": {
+    "category_name": "Peas",
+    "name_ua": "Горох",
+    "group": "leguminous"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 18,
+  "fields": {
+    "category_name": "Poppy",
+    "name_ua": "Мак",
+    "group": "niche"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 19,
+  "fields": {
+    "category_name": "Rape-seed cake",
+    "name_ua": "Ріпаковий макуха",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 20,
+  "fields": {
+    "category_name": "Rape-seed meal",
+    "name_ua": "Ріпаковий шрот",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 21,
+  "fields": {
+    "category_name": "Rape-seed oil",
+    "name_ua": "Ріпакова олія",
+    "group": "oil"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 22,
+  "fields": {
+    "category_name": "Rapes-eed",
+    "name_ua": "Рапс",
+    "group": "oil"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 23,
+  "fields": {
+    "category_name": "Rice",
+    "name_ua": "Рис",
+    "group": "buckwheat"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 24,
+  "fields": {
+    "category_name": "Rye",
+    "name_ua": "Жито",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 25,
+  "fields": {
+    "category_name": "Rye flour",
+    "name_ua": "Житнє борошно",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 26,
+  "fields": {
+    "category_name": "Rye grade 2",
+    "name_ua": "Жито 2 сорт",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 27,
+  "fields": {
+    "category_name": "Rye grade 3",
+    "name_ua": "Жито 3 сорт",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 28,
+  "fields": {
+    "category_name": "Rye grade 4",
+    "name_ua": "Жито 4 сорт",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 29,
+  "fields": {
+    "category_name": "Sorghum",
+    "name_ua": "Сорго",
+    "group": "niche"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 30,
+  "fields": {
+    "category_name": "Soybean cake",
+    "name_ua": "Соєвий макуха",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 31,
+  "fields": {
+    "category_name": "Soybean meal",
+    "name_ua": "Соєвий шрот",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 32,
+  "fields": {
+    "category_name": "Soybean oil",
+    "name_ua": "Олія соєва",
+    "group": "oil"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 33,
+  "fields": {
+    "category_name": "Soybeans",
+    "name_ua": "Соя",
+    "group": "oil"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 34,
+  "fields": {
+    "category_name": "Sugar",
+    "name_ua": "Цукор",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 35,
+  "fields": {
+    "category_name": "Sugar beet pulp gran",
+    "name_ua": "Жом цукрових буряків гран",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 36,
+  "fields": {
+    "category_name": "Sunflower",
+    "name_ua": "Соняшник",
+    "group": "oil"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 37,
+  "fields": {
+    "category_name": "Sunflower oil",
+    "name_ua": "Соняшникова олія",
+    "group": "oil"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 38,
+  "fields": {
+    "category_name": "Sunflower oil cake",
+    "name_ua": "Макуха соняшникова",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 39,
+  "fields": {
+    "category_name": "Sunflower seed meal",
+    "name_ua": "Шрот соняшниковий",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 40,
+  "fields": {
+    "category_name": "Triticale",
+    "name_ua": "Тритикале",
+    "group": "niche"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 41,
+  "fields": {
+    "category_name": "Vetch",
+    "name_ua": "Віка",
+    "group": "niche"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 42,
+  "fields": {
+    "category_name": "Wheat flour class 1",
+    "name_ua": "Борошно пшеничне 1 класу",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 43,
+  "fields": {
+    "category_name": "Wheat flour extra class",
+    "name_ua": "Борошно пшеничне вищого сорту",
+    "group": "processing"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 44,
+  "fields": {
+    "category_name": "Wheat grade 1",
+    "name_ua": "Пшениця 1 сорт",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 45,
+  "fields": {
+    "category_name": "Wheat grade 2",
+    "name_ua": "Пшениця 2 сорт",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 46,
+  "fields": {
+    "category_name": "Wheat grade 3",
+    "name_ua": "Пшениця 3 сорт",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 47,
+  "fields": {
+    "category_name": "Wheat grade 4",
+    "name_ua": "Пшениця 4 сорт",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 48,
+  "fields": {
+    "category_name": "Wheat grade 5",
+    "name_ua": "Пшениця 5 сорт",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 49,
+  "fields": {
+    "category_name": "Wheat grade 6",
+    "name_ua": "Пшениця 6 сорт",
+    "group": "crops"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 50,
+  "fields": {
+    "category_name": "Diesel",
+    "name_ua": "Дизельне пальне",
+    "group": "fuel"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 51,
+  "fields": {
+    "category_name": "Ammonium nitrate",
+    "name_ua": "Аміачна селітра",
+    "group": "fertilizers"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 52,
+  "fields": {
+    "category_name": "Urea",
+    "name_ua": "Карбамід",
+    "group": "fertilizers"
+  }
+},
+{
+  "model": "offers.category",
+  "pk": 53,
+  "fields": {
+    "category_name": "KAM 32 Urea-Ammonia Mixture",
+    "name_ua": "КАС 32 Карбамідо-Аміачна Суміш",
+    "group": "fertilizers"
+  }
+}
+]
