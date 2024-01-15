@@ -1,5 +1,6 @@
 python manage.py dumpdata offers.Category --format json --output offers/fixtures/categories.json --indent 2
 python manage.py dumpdata offers.Offer --format json --output offers/fixtures/offers.json --indent 2
 python manage.py dumpdata auth.User --format json --output offers/fixtures/users.json --indent 2
+python manage.py dumpdata django_celery_beat.CrontabSchedule django_celery_beat.PeriodicTask --format json --indent 2 --output offers/fixtures/prod/celery_beat.json
 
 python manage.py loaddata --format json offers/fixtures/*

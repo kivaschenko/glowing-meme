@@ -53,7 +53,8 @@ class SearchForm(Form):
         widget=widgets.RadioSelect(),
         required=True, initial="")
     category = ModelChoiceField(queryset=Category.objects.all(), required=False)
-    country = ModelChoiceField(queryset=ActualCountry.objects.filter(offers_count__gt=0), required=False)
+    country = ModelChoiceField(queryset=ActualCountry.objects.filter(offers_count__gt=0).values_list("name", flat=True),
+                               required=False)
     min_amount = DecimalField(max_digits=8, decimal_places=2, required=False,
                               help_text="minimum amount in metric tons")
     max_amount = DecimalField(max_digits=8, decimal_places=2, required=False,

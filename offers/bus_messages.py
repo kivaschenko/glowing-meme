@@ -23,6 +23,7 @@ def update_mini_map(event: events.NewOfferCreated):
 
 
 def update_actual_country_count(event: events.NewOfferCreated):
+    print(f"Received event: {event}")
     tasks.update_actual_country_count_for_new_offer(event.offer_id)
 
 
@@ -34,6 +35,7 @@ HANDLERS = {
     events.NewOfferCreated: [
         update_address,
         update_mini_map,
+        update_actual_country_count,
         send_notification,
     ],
 }

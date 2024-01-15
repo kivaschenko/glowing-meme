@@ -163,9 +163,10 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "default",
         },
+        # TODO: fix logging into file
         "log_to_file": {
             "level": "INFO",
-            "class": "logging.handlers.RotatingFileHandler",
+            "class": "logging.FileHandler",
             "formatter": "simple",
             "filename": os.environ.get('LOGGING_FILE'),
         },

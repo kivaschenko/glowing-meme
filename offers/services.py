@@ -3,6 +3,7 @@ import logging
 
 import requests
 from django.conf import settings
+from django.db import connection
 from django.core.files.base import File, ContentFile
 from django.contrib.gis.geos import fromstr
 
@@ -54,7 +55,22 @@ def update_actual_country_record(country_name: str, count: int):
     actual_country, _ = ActualCountry.objects.get_or_create(name=country_name)
     actual_country.offers_count = count
     actual_country.save()
+    print(f"Updated country {actual_country}")
     logger.info(f'Updated country record for {actual_country}')
+
+
+def collect_all_unique_country_from_actual_offers():
+    records = []
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT country, COUNT(country) FROM offers GROUP BY country")
+        records = cursor.fetchall()
+    if len(records):
+        for record in records:
+            actual_country, _ = ActualCountry.objects.get_or_create(name=record[0])
+            actual_country.offers_count = record[1]
+            actual_country.save()
+            print(f'Updated country record for {actual_country}')
+            logger.info(f'Updated country record for {actual_country}')
 
 
 # ---------------

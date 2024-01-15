@@ -59,7 +59,11 @@ python manage.py runserver
 
 ### Celery
 ```
-celery -A refactored_graintrade worker -l INFO
+celery -A refactored_graintrade worker -l INFO --beat --scheduler django
+```
+### Flower
+```
+celery -A refactored_graintrade flower -l INFO
 ```
 
 

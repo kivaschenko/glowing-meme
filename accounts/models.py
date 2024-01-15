@@ -17,6 +17,10 @@ class Profile(models.Model):
     website = models.URLField(blank=True, null=True)
     description = models.TextField(max_length=600, blank=True, null=True)
 
+    class Meta:
+        db_table = 'profiles'
+        ordering = ('user',)
+
     def __str__(self):
         return "Profile for {}".format(self.user.username)
 
@@ -43,6 +47,10 @@ class Interest(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='interests')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='interests')
 
+    class Meta:
+        db_table = 'interests'
+        ordering = ('category',)
+
     def __str__(self):
         return "Interest for {0}: {1}".format(self.user, self.category)
 
@@ -59,6 +67,10 @@ class Address(models.Model):
     region = models.CharField(max_length=120, blank=True, null=True)
     country = models.CharField(max_length=120, blank=True, null=True)
     mini_map = models.ImageField(upload_to='address_static_maps/', blank=True, null=True)
+
+    class Meta:
+        db_table = 'addresses'
+        ordering = ['country', 'region']
 
     # geometry location
     geometry_point = gis_models.PointField(verbose_name="Location", srid=4326)

@@ -40,3 +40,9 @@ def update_actual_country_count_for_new_offer(offer_id: int):
     country_name = get_offer_by_id(offer_id).country
     count = get_count_offers_by_country_name(country_name)
     update_actual_country_record(country_name, count)
+
+
+@shared_task()
+def update_actual_country_for_all_offers():
+    from offers.services import collect_all_unique_country_from_actual_offers
+    collect_all_unique_country_from_actual_offers()

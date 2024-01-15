@@ -132,11 +132,9 @@ class SearchResultsView(ListView):
         self.filter_params = {}
         super(SearchResultsView, self).setup(request, *args, **kwargs)
         self._get_filter_params(request)
-        print('filter_params:', self.filter_params)
 
     def _get_filter_params(self, request):
         params = request.GET.copy()
-        print('params', params)
         if type_offer := params.get('type_offer'):
             self.filter_params['type_offer'] = type_offer
         if category_id := params.get('category'):
@@ -164,10 +162,8 @@ class SearchResultsView(ListView):
         """
         if self.queryset is not None:
             queryset = self.queryset
-            print('base queryset:', queryset)
             if isinstance(queryset, QuerySet):
                 queryset = queryset.filter(**self.filter_params)
-                print(queryset)
         elif self.model is not None:
             queryset = self.model._default_manager.all()
         else:

@@ -15,6 +15,7 @@ class Category(models.Model):
     group = models.CharField(max_length=60, null=True)
 
     class Meta:
+        db_table = 'categories'
         ordering = ["group", "category_name"]
 
     def __str__(self):
@@ -61,6 +62,7 @@ class Offer(models.Model):
     actual = ActualOffers()  # offers where expired datetime less or equal now
 
     class Meta:
+        db_table = 'offers'
         ordering = ["-created_at", "-id"]
 
     def __str__(self):
@@ -86,4 +88,4 @@ class ActualCountry(models.Model):
         return f"{self.name}"
 
     def __repr__(self):
-        return f"<ActualCountry(name={self.name}, offers_count={self}"
+        return f"<ActualCountry(name={self.name}, offers_count={self.offers_count})>"
