@@ -17,7 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.models import User
-from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import routers, serializers, viewsets
@@ -32,11 +31,37 @@ from drf_spectacular.views import (
     SpectacularSwaggerView,
 )
 
+# monolith urls
+from offers.views import (
+    HomeView,
+    OffersListView,
+    CreateOfferView,
+    OfferDetailView,
+    CategoryListView,
+    CategoryDetailView,
+    SearchResultsView,
+)
+from accounts.views import (
+    RegistrationView,
+    ProfileUpdateView,
+    ProfileDetailView,
+)
 from offers.urls import urlpatterns as offer_urlpatterns
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("", TemplateView.as_view(template_name="home.html"), name="home"),
+    path("home/", HomeView.as_view(), name="home"),
+    path("accounts/signup/", RegistrationView.as_view(), name='signup'),
+    path("accounts/update-profile/<int:pk>/", ProfileUpdateView.as_view(), name='update-profile'),
+    path("accounts/profile/<int:user_id>/", ProfileDetailView.as_view(), name='profile'),
+    # offers
+    path("offers-list/", OffersListView.as_view(), name="offers-list"),
+    path("create-offer/", CreateOfferView.as_view(), name="create-offer"),
+    path("offer-details/<int:pk>/", OfferDetailView.as_view(), name="offer-details"),
+    path("search-results/", SearchResultsView.as_view(), name="search"),
+    # categories
+    path("categories-list/", CategoryListView.as_view(), name="categories-list"),
+    path("category-detail/<int:pk>/", CategoryDetailView.as_view(), name="category-detail"),
     # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path("accounts/", include("django.contrib.auth.urls")),
@@ -89,19 +114,7 @@ urlpatterns += [
 # Offers API
 urlpatterns += offer_urlpatterns
 
-# monolith urls
-from offers.views import (
-    OffersListView,
-    CreateOfferView,
-    OfferDetailView,
-    CategoryListView,
-    CategoryDetailView,
-)
-from accounts.views import (
-    RegistrationView,
-    ProfileUpdateView,
-    ProfileDetailView,
-)
+
 
 urlpatterns += [
     path("accounts/signup/", RegistrationView.as_view(), name='signup'),

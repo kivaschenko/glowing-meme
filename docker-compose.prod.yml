@@ -27,6 +27,7 @@ services:
       - django:/volume_app/
     command:
       python3 manage.py migrate &&
+      python3 manage.py loaddata offers/fixtures/prod/*  &&
       python3 manage.py runserver 8000
     ports:
       - 8000:8000
@@ -57,8 +58,20 @@ services:
     volumes:
       - redis:/var/lib/redis/data
 
+  worker:
+    container_name: celery
+    build:
+      context: "."
+    command: celery -A refactored_graintrade worker -l INFO
+    depends_on:
+      - "redis"
+    restart: always
+    volumes:
+      - celery:/var/lib/celery/data
+
 volumes:
   pgadmin:
   postgres:
   redis:
   django:
+  celery:

@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+    <dev class="row d-flex-lg d-flex-md">
+        {% for offer in offers %}
+            {% include 'include/offer_card.html' %}
+        {% endfor %}
+    </dev>
+{% endblock %}

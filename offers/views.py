@@ -1,14 +1,23 @@
-from django.views.generic import ListView, DeleteView, DetailView
+from decimal import Decimal
+from django.db.models import QuerySet
+from django.views.generic import ListView, DeleteView, DetailView, TemplateView
 from django.views.generic.edit import FormView
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from .forms import OfferForm
+from .forms import OfferForm, SearchForm
 from .models import Offer, Category
 from .services import create_new_offer, get_offers_by_category_id
 from .events import NewOfferCreated
 from .bus_messages import handle
+
+
+# ----
+# HOME
+class HomeView(TemplateView):
+    template_name = 'home.html'
+    extra_context = {'form': SearchForm()}
 
 
 # ------
@@ -86,11 +95,13 @@ class CategoryListView(ListView):
     context_object_name = 'categories'
     template_name = 'categories/category_list.html'
 
+
 class CategoryDetailView(DetailView):
     model = Category
     context_object_name = 'category'
     extra_context = {}
     template_name = 'categories/category_detail.html'
+
     def get_context_data(self, **kwargs):
         """Insert the single object into the context dict."""
         context = {}
@@ -102,3 +113,72 @@ class CategoryDetailView(DetailView):
             self.extra_context['offers'] = get_offers_by_category_id(category_id=self.object.id)
         context.update(kwargs)
         return super().get_context_data(**context)
+
+
+# ------
+# Search
+
+class SearchResultsView(ListView):
+    model = Offer
+    queryset = Offer.actual.all()
+    ordering = ['country', 'region']
+    filter_params = {}
+    context_object_name = 'offers'
+    template_name = 'offers/search_results.html'
+    paginate_by = 10
+
+    def setup(self, request, *args, **kwargs):
+        """Initialize attributes shared by all view methods."""
+        self.filter_params = {}
+        super(SearchResultsView, self).setup(request, *args, **kwargs)
+        self._get_filter_params(request)
+        print('filter_params:', self.filter_params)
+
+    def _get_filter_params(self, request):
+        params = request.GET.copy()
+        print('params', params)
+        if type_offer := params.get('type_offer'):
+            self.filter_params['type_offer'] = type_offer
+        if category_id := params.get('category'):
+            self.filter_params['category_id'] = int(category_id)
+        if country := params.get('country'):
+            self.filter_params['country'] = country
+        if min_amount := params.get('min_amount'):
+            self.filter_params['amount__gte'] = Decimal(min_amount)
+        if max_amount := params.get('max_amount'):
+            self.filter_params['amount__lte'] = Decimal(max_amount)
+        if min_price := params.get('min_price'):
+            self.filter_params['price__gte'] = Decimal(min_price)
+        if max_price := params.get('max_price'):
+            self.filter_params['price__lte'] = Decimal(max_price)
+        if currency := params.get('currency'):
+            self.filter_params['currency'] = currency
+        if terms_delivery := params.get('terms_delivery'):
+            self.filter_params['terms_delivery'] = terms_delivery
+
+    def get_queryset(self):
+        """
+        Return the list of items for this view.
+        The return value must be an iterable and may be an instance of
+        `QuerySet` in which case `QuerySet` specific behavior will be enabled.
+        """
+        if self.queryset is not None:
+            queryset = self.queryset
+            print('base queryset:', queryset)
+            if isinstance(queryset, QuerySet):
+                queryset = queryset.filter(**self.filter_params)
+                print(queryset)
+        elif self.model is not None:
+            queryset = self.model._default_manager.all()
+        else:
+            raise ImproperlyConfigured(
+                "%(cls)s is missing a QuerySet. Define "
+                "%(cls)s.model, %(cls)s.queryset, or override "
+                "%(cls)s.get_queryset()." % {"cls": self.__class__.__name__}
+            )
+        ordering = self.get_ordering()
+        if ordering:
+            if isinstance(ordering, str):
+                ordering = (ordering,)
+            queryset = queryset.order_by(*ordering)
+        return queryset

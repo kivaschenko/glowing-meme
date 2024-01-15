@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block header %}
 <!-- Navbar -->
 {% include 'include/navbar.html' %}
@@ -10,18 +11,23 @@
 
 {% block content %}
   <div class="row" style="margin-top: 5rem;">
-    <div class="col-lg-6 col-md-6">
-      <h2>Offers & Analytics</h2>
-        <ul class="list-group">
-            <li class="list-group-item"><a href="{% url 'offers-list' %}">Offers List</a></li>
-            <li class="list-group-item"><a href="{% url 'create-offer' %}">Create Offer</a></li>
-        </ul>
-    <h2>Categories</h2>
-    <ul class="list-group">
-        <li class="list-group-item"><a href="{% url 'categories-list' %}">Categories List</a> </li>
-    </ul>
+    <div class="col-lg-3 col-md-3">
+        <div class="card card-body">
+            <h5 class="card-title">Quick access</h5>
+            <div class="btn-group" role="group">
+                <a href="{% url 'offers-list' %}" class="btn btn-outline-primary">Offers List</a>
+                <a href="{% url 'create-offer' %}" class="btn btn-outline-primary">Create Offer</a>
+                <a href="{% url 'categories-list' %}" class="btn btn-outline-primary">Categories List</a>
+            </div>
+        </div>
+        <div class="card card-body" style="background-color: chocolate;">
+          <h5 class="card-title">Search form</h5>
+          <form action="{% url 'search' %}" method="get">
+              {{ form|crispy }}
+              <input type="submit" class="btn btn-primary" value="Submit">
+          </form>
+        </div>
     </div>
-    <div class="col">
-    </div>
+    <div class="col-lg-6 col-md-6"></div>
   </div>
 {% endblock %}

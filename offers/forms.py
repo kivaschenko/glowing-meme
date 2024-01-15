@@ -8,8 +8,7 @@ from django.forms import (
 )
 from django.core import validators
 
-from accounts import forms
-from .models import Category
+from .models import Category, ActualCountry
 
 
 class OfferForm(Form):
@@ -52,8 +51,9 @@ class SearchForm(Form):
             ("sell", "SELL (Продам)")
         ),
         widget=widgets.RadioSelect(),
-        required=True, initial="buy")
-    category = ModelChoiceField(queryset=Category.objects.all())
+        required=True, initial="")
+    category = ModelChoiceField(queryset=Category.objects.all(), required=False)
+    country = ModelChoiceField(queryset=ActualCountry.objects.filter(offers_count__gt=0), required=False)
     min_amount = DecimalField(max_digits=8, decimal_places=2, required=False,
                               help_text="minimum amount in metric tons")
     max_amount = DecimalField(max_digits=8, decimal_places=2, required=False,
@@ -62,8 +62,16 @@ class SearchForm(Form):
                              help_text="minimum price per 1 metric ton")
     max_price = DecimalField(max_digits=8, decimal_places=2, required=False,
                              help_text="maximum price per 1 metric ton")
-    currency = ChoiceField(choices=(("USD", "USD"), ("UAH", "UAH")), widget=widgets.RadioSelect(),
-                           required=True, initial="USD")
+    currency = ChoiceField(
+        choices=(
+            ("", "All (Всі)"),
+            ("USD", "USD"),
+            ("UAH", "UAH")
+        ),
+        widget=widgets.RadioSelect(),
+        required=True,
+        initial="",
+    )
     terms_delivery = ChoiceField(
         choices=(
             ("", "ALL - all terms delivery (Всі умови доставки)"),
@@ -78,4 +86,6 @@ class SearchForm(Form):
             ("FOB", "FOB - Free On Board (Франко-борт)"),
             ("CFR", "CFR - Cost and Feight (Вартість і фрахт)"),
             ("CIF", "CIF - Cost Insurance and Freight (Вартість, страхування і фрахт)")
-        ))
+        ),
+        required=False,
+    )
