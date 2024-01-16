@@ -33,6 +33,7 @@ class ActualOffers(models.Manager):
 
 
 class Offer(models.Model):
+    # TODO add slug field
     author = models.ForeignKey(User, on_delete=models.PROTECT, related_name="offers")
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="offers"

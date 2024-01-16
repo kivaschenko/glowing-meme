@@ -31,6 +31,7 @@ class Profile(models.Model):
         from django.urls import reverse
         return reverse('profile', kwargs={'user_id': self.user_id})
 
+    # TODO: add Celery task to handle avatar image from mediafiles
     # def save(self, *args, **kwargs):
     #     super().save()
     #
@@ -60,23 +61,23 @@ class Interest(models.Model):
 
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='addresses')
-    name = models.CharField(max_length=120, blank=True, null=True)
-    latitude = models.FloatField(blank=True, null=True)
-    longitude = models.FloatField(blank=True, null=True)
-    address = models.CharField(max_length=120, blank=True, null=True)
-    region = models.CharField(max_length=120, blank=True, null=True)
-    country = models.CharField(max_length=120, blank=True, null=True)
-    mini_map = models.ImageField(upload_to='address_static_maps/', blank=True, null=True)
+    address_name = models.CharField(max_length=150, blank=True, null=True)
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
+    address = models.CharField(max_length=150, blank=True, null=True)
+    region = models.CharField(max_length=150, blank=True, null=True)
+    country = models.CharField(max_length=150, blank=True, null=True)
+    mini_map = models.FileField(upload_to='address_static_maps/', null=True)
+
+    # geometry location
+    geometry_point = gis_models.PointField(verbose_name="Location", srid=4326)
 
     class Meta:
         db_table = 'addresses'
         ordering = ['country', 'region']
 
-    # geometry location
-    geometry_point = gis_models.PointField(verbose_name="Location", srid=4326)
-
     def __str__(self):
-        return f"Address for {self.user}: {self.name} at {self.address}"
+        return f"Address for {self.user}: {self.address_name} at {self.address}"
 
     def __repr__(self):
         return f"<Address(user={self.user} name={self.name}, latitude={self.latitude} longitude={self.longitude})>"
