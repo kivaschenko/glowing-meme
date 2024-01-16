@@ -18,13 +18,13 @@ def update_address(event: events.NewOfferCreated):
 
 
 def update_mini_map(event: events.NewOfferCreated):
-    # tasks.get_mini_map_image_from_coordinates.delay(event.longitude, event.latitude, event.offer_id)
-    services.get_static_map_image_by_coords(event.longitude, event.latitude, event.offer_id)
+    tasks.get_mini_map_image_from_coordinates.delay(event.longitude, event.latitude, event.offer_id)
+    # services.get_static_map_image_by_coords(event.longitude, event.latitude, event.offer_id)
 
 
 def update_actual_country_count(event: events.NewOfferCreated):
     print(f"Received event: {event}")
-    tasks.update_actual_country_count_for_new_offer(event.offer_id)
+    tasks.update_actual_country_count_for_new_offer.delay(event.offer_id)
 
 
 def send_notification(event: events.Event):

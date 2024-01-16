@@ -163,6 +163,7 @@ class SearchResultsView(ListView):
         if self.queryset is not None:
             queryset = self.queryset
             if isinstance(queryset, QuerySet):
+                # update queryset according GET params filtering:
                 queryset = queryset.filter(**self.filter_params)
         elif self.model is not None:
             queryset = self.model._default_manager.all()

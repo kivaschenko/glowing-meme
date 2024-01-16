@@ -32,14 +32,10 @@ def get_mini_map_image_from_coordinates(longitude: Decimal, latitude: Decimal, o
 
 @shared_task()
 def update_actual_country_count_for_new_offer(offer_id: int):
-    from offers.services import (
-        get_offer_by_id,
-        get_count_offers_by_country_name,
-        update_actual_country_record,
-    )
-    country_name = get_offer_by_id(offer_id).country
-    count = get_count_offers_by_country_name(country_name)
-    update_actual_country_record(country_name, count)
+    from offers import services
+    country_name = services.get_offer_by_id(offer_id).country
+    count = services.get_count_offers_by_country_name(country_name)
+    services.update_actual_country_record(country_name, count)
 
 
 @shared_task()

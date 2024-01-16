@@ -435,7 +435,7 @@
   "model": "offers.offer",
   "pk": 19,
   "fields": {
-    "author": 3,
+    "author": 2,
     "category": 21,
     "type_offer": "sell",
     "price": "145.70",
@@ -459,7 +459,7 @@
   "model": "offers.offer",
   "pk": 20,
   "fields": {
-    "author": 3,
+    "author": 2,
     "category": 51,
     "type_offer": "buy",
     "price": "300.50",
@@ -573,6 +573,102 @@
     "region": "Constanța",
     "country": "Romania",
     "mini_map_img": "offer_static_maps/minimap_24.png"
+  }
+},
+{
+  "model": "offers.offer",
+  "pk": 25,
+  "fields": {
+    "author": 1,
+    "category": 24,
+    "type_offer": "sell",
+    "price": "4500.00",
+    "currency": "UAH",
+    "amount": "20.00",
+    "terms_delivery": "EXW",
+    "created_at": "2024-01-15",
+    "expired_at": "2024-01-22",
+    "is_active": true,
+    "latitude": "49.432250",
+    "longitude": "30.533855",
+    "details": "",
+    "geometry_point": "SRID=4326;POINT (30.53385498 49.43225041)",
+    "address": "Набережна Вулиця, Велика Березянка, Ukraine, 095",
+    "region": "Kyiv Oblast",
+    "country": "Ukraine",
+    "mini_map_img": "offer_static_maps/minimap_25.png"
+  }
+},
+{
+  "model": "offers.offer",
+  "pk": 26,
+  "fields": {
+    "author": 1,
+    "category": 50,
+    "type_offer": "sell",
+    "price": "54300.00",
+    "currency": "UAH",
+    "amount": "44.00",
+    "terms_delivery": "DPU",
+    "created_at": "2024-01-15",
+    "expired_at": "2024-01-22",
+    "is_active": true,
+    "latitude": "49.536634",
+    "longitude": "30.874431",
+    "details": "",
+    "geometry_point": "SRID=4326;POINT (30.87443115 49.53663363)",
+    "address": "Провулок Воззʼєднання, Богуслав, Ukraine, 097",
+    "region": "Kyiv Oblast",
+    "country": "Ukraine",
+    "mini_map_img": "offer_static_maps/minimap_26.png"
+  }
+},
+{
+  "model": "offers.offer",
+  "pk": 27,
+  "fields": {
+    "author": 1,
+    "category": 50,
+    "type_offer": "sell",
+    "price": "54300.00",
+    "currency": "UAH",
+    "amount": "44.00",
+    "terms_delivery": "DPU",
+    "created_at": "2024-01-15",
+    "expired_at": "2024-01-22",
+    "is_active": true,
+    "latitude": "49.536634",
+    "longitude": "30.874431",
+    "details": "",
+    "geometry_point": "SRID=4326;POINT (30.87443115 49.53663363)",
+    "address": "Провулок Воззʼєднання, Богуслав, Ukraine, 097",
+    "region": "Kyiv Oblast",
+    "country": "Ukraine",
+    "mini_map_img": "offer_static_maps/minimap_27.png"
+  }
+},
+{
+  "model": "offers.offer",
+  "pk": 28,
+  "fields": {
+    "author": 1,
+    "category": 37,
+    "type_offer": "sell",
+    "price": "3450.00",
+    "currency": "UAH",
+    "amount": "22.00",
+    "terms_delivery": "EXW",
+    "created_at": "2024-01-15",
+    "expired_at": "2024-01-22",
+    "is_active": true,
+    "latitude": "48.559449",
+    "longitude": "32.218599",
+    "details": "",
+    "geometry_point": "SRID=4326;POINT (32.21859884 48.55944887)",
+    "address": "Вулиця Гетьмана Сагайдачного, Кропивницький, Ukraine, 250",
+    "region": "Kirovohrad Oblast",
+    "country": "Ukraine",
+    "mini_map_img": "offer_static_maps/minimap_28.png"
   }
 }
 ]

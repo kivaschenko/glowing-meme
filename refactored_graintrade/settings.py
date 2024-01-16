@@ -163,7 +163,6 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "default",
         },
-        # TODO: fix logging into file
         "log_to_file": {
             "level": "INFO",
             "class": "logging.FileHandler",
@@ -173,7 +172,7 @@ LOGGING = {
     },
     "loggers": {
         "offers": {
-            "handlers": ["log_to_stdout"],
+            "handlers": ["log_to_stdout", "log_to_file"],
             "level": "INFO",
             "propagate": True,
         },
@@ -182,7 +181,7 @@ LOGGING = {
         # }
     },
     "root": {
-        "handlers": ["log_to_stdout"],
+        "handlers": ["log_to_stdout", "log_to_file"],
         "level": "INFO",
     }
 }
