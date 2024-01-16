@@ -670,5 +670,53 @@
     "country": "Ukraine",
     "mini_map_img": "offer_static_maps/minimap_28.png"
   }
+},
+{
+  "model": "offers.offer",
+  "pk": 29,
+  "fields": {
+    "author": 3,
+    "category": 33,
+    "type_offer": "sell",
+    "price": "10000.00",
+    "currency": "UAH",
+    "amount": "120.00",
+    "terms_delivery": "FCA",
+    "created_at": "2024-01-16",
+    "expired_at": "2024-01-23",
+    "is_active": true,
+    "latitude": "49.752718",
+    "longitude": "31.451212",
+    "details": "",
+    "geometry_point": "SRID=4326;POINT (31.45121231 49.75271808)",
+    "address": "Вулиця Микити Швачки, Канів, Ukraine, 190",
+    "region": "Cherkasy Oblast",
+    "country": "Ukraine",
+    "mini_map_img": "offer_static_maps/minimap_29.png"
+  }
+},
+{
+  "model": "offers.offer",
+  "pk": 30,
+  "fields": {
+    "author": 3,
+    "category": 6,
+    "type_offer": "sell",
+    "price": "7000.00",
+    "currency": "USD",
+    "amount": "60.00",
+    "terms_delivery": "FCA",
+    "created_at": "2024-01-16",
+    "expired_at": "2024-01-23",
+    "is_active": true,
+    "latitude": "49.761590",
+    "longitude": "31.438854",
+    "details": "",
+    "geometry_point": "SRID=4326;POINT (31.43885375 49.76159031)",
+    "address": "Залізнична Вулиця, 85, Канів, Ukraine, 190",
+    "region": "Cherkasy Oblast",
+    "country": "Ukraine",
+    "mini_map_img": "offer_static_maps/minimap_30.png"
+  }
 }
 ]
