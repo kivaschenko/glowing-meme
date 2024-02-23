@@ -1,8 +1,36 @@
 {% extends 'base.html' %}
+<style>
+    #map {
+        position: absolute;
+        width: 100%;
+        top: 2rem;
+        bottom: 2rem;
+    }
+    
+</style>
 {% block content %}
-    <dev class="row d-flex-lg d-flex-md">
-        {% for offer in offers %}
-            {% include 'include/offer_card.html' %}
-        {% endfor %}
-    </dev>
+    <div class="row">
+        <div class="col-lg-6 col-md-4">
+            <div class="row d-flex-lg d-flex-md">
+                {% for offer in offers %}
+                    {% include 'include/offer_card.html' %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-8">
+            <div id="map" class="map"></div>
+        </div>
+    </div>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoia2l2YXNjaGVua28iLCJhIjoiY2xva2dweG41MjR0aDJxbWVibTFid3VndyJ9._Gia54L_MbRbTl99ZilRXw';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/kivaschenko/ckhc76knv0dh719m3kngv5z2b',
+            center: [31.109556, 49.560345],
+            zoom: 5.75,
+            scrollZoom: false
+        });
+    </script>
 {% endblock %}

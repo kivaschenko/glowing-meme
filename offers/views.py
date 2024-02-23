@@ -1,6 +1,8 @@
 from decimal import Decimal
+
+from django.core.exceptions import ImproperlyConfigured
 from django.db.models import QuerySet
-from django.views.generic import ListView, DeleteView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import FormView
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
@@ -8,9 +10,9 @@ from django.contrib.auth.decorators import login_required
 
 from .forms import OfferForm, SearchForm
 from .models import Offer, Category
-from .services import create_new_offer, get_offers_by_category_id
-from .events import NewOfferCreated
-from .bus_messages import handle
+from service_layer.services import create_new_offer, get_offers_by_category_id
+from service_layer.events import NewOfferCreated
+from service_layer.bus_messages import handle
 
 
 # ----
@@ -63,7 +65,7 @@ class CreateOfferView(FormView):
                                          longitude=data.get("longitude"),
                                          details=data.get("details"),
                                          )
-            # create a new events
+            # create new events
             self.events.append(NewOfferCreated(new_offer.longitude, new_offer.latitude, new_offer.id))
             # self.get(request, *args, **kwargs)
             return self.form_valid(form)
@@ -165,6 +167,7 @@ class SearchResultsView(ListView):
             if isinstance(queryset, QuerySet):
                 # update queryset according GET params filtering:
                 queryset = queryset.filter(**self.filter_params)
+
         elif self.model is not None:
             queryset = self.model._default_manager.all()
         else:
@@ -179,3 +182,7 @@ class SearchResultsView(ListView):
                 ordering = (ordering,)
             queryset = queryset.order_by(*ordering)
         return queryset
+
+
+class MapListingView(TemplateView):
+    template_name = 'offers/map_listing.html'

@@ -4,7 +4,6 @@ from datetime import datetime, timedelta
 from django.contrib.auth.models import User
 from django.contrib.gis.db import models
 
-
 logger = logging.Logger(__name__)
 
 
@@ -57,10 +56,13 @@ class Offer(models.Model):
     region = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=255, null=True, blank=True)
     # images
-    mini_map_img = models.FileField(upload_to='offer_static_maps', null=True)
+    mini_map_img = models.FileField(upload_to='offer_static_maps', null=True, blank=True)
 
     objects = models.Manager()
     actual = ActualOffers()  # offers where expired datetime less or equal now
+
+    # mapbox popup
+    description = models.TextField(null=True, blank=True)
 
     class Meta:
         db_table = 'offers'
@@ -72,8 +74,16 @@ class Offer(models.Model):
     def __repr__(self):
         return f"<Offer(id={self.id} title={self.category}...)>"
 
+    def get_popup_description_for_map(self, *args, **kwargs):
+        html_source = (f"<h6>{self.type_offer.upper()} {self.category.category_name}</h6>"
+                       f"<p>Price: {self.price} {self.currency}</p>"
+                       f"<p>Amount: {self.amount} metric tonn</p>"
+                       f"<p>Terms Delivery: {self.terms_delivery}</p>")
+        return html_source
+
     def save(self, *args, **kwargs):
-        self.expired_at = datetime.now() + timedelta(days=7)
+        self.expired_at = datetime.now() + timedelta(days=30)
+        self.description = self.get_popup_description_for_map()
         super().save(*args, **kwargs)
 
 

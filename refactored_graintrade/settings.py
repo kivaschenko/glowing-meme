@@ -210,7 +210,7 @@ REST_FRAMEWORK = {
 }
 # Celery Configuration Options
 CELERY_IMPORTS = (
-    "offers.tasks",
+    "service_layer.tasks",
 )
 CELERY_TIMEZONE = "UTC"
 CELERY_TASK_TRACK_STARTED = True

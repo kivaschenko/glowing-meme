@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.1.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.1.0/mapbox-gl.css' rel='stylesheet'/>
+<script src="https://js.sentry-cdn.com/9c5feb5b248b49f79a585804c259febc.min.js" crossorigin="anonymous"></script>
+{% block content %}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+
+        /* The page is split between map and sidebar - the sidebar gets 1/3, map
+		gets 2/3 of the page. You can adjust this to your personal liking. */
+        .map {
+            position: absolute;
+            left: 33.3333%;
+            width: 66.6666%;
+            top: 0;
+            bottom: 0;
+        }
+        .listings .item {
+            border-bottom: 1px solid #eee;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        .listings .item:last-child {
+            border-bottom: none;
+        }
+
+        .listings .item .title {
+            display: block;
+            color: #00853e;
+            font-weight: 700;
+        }
+
+        .listings .item .title small {
+            font-weight: 400;
+        }
+
+        .listings .item.active .title,
+        .listings .item .title:hover {
+            color: #c6b43f;
+        }
+
+        .listings .item.active {
+            background-color: #f8f8f8;
+        }
+
+        ::-webkit-scrollbar {
+            width: 3px;
+            height: 3px;
+            border-left: 0;
+            background: rgba(0 0 0 0.1);
+        }
+
+        ::-webkit-scrollbar-track {
+            background: none;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00853e;
+            border-radius: 0;
+        }
+
+        .mapboxgl-popup-close-button {
+            display: none;
+        }
+
+        .mapboxgl-popup-content {
+            font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+            padding: 0;
+            width: 180px;
+        }
+
+    </style>
+
+    <div class="row" style="margin-top: 70px; position: absolute;">
+        <dev id='listings' class="col-lg-4 col-md-4 d-flex-lg d-flex-md">
+        </dev>
+        <div class="col-lg-8 col-md-8">
+            <div id="map" class="map"></div>
+        </div>
+    </div>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1Ijoia2l2YXNjaGVua28iLCJhIjoiY2xva2dweG41MjR0aDJxbWVibTFid3VndyJ9._Gia54L_MbRbTl99ZilRXw';
+
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/kivaschenko/ckhc76knv0dh719m3kngv5z2b',
+            center: [31.109556, 49.560345],
+            zoom: 5.75,
+            scrollZoom: false
+        });
+        const offers = {{ places|safe }};
+        console.log('places:', offers);
+        
+        map.on('load', () => {
+            map.addLayer({
+                id: 'locations',
+                type: 'circle',
+                source: {
+                    type: 'geojson',
+                    data: offers,
+                },
+                paint: {
+                    'circle-color': '#4264fb',
+                    'circle-radius': 10,
+                    'circle-stroke-width': 2,
+                    'circle-stroke-color': '#ffffff'
+                }
+
+            });
+            buildLocationList(offers);
+        });
+
+        map.on('click', (event) => {
+            const features = map.queryRenderedFeatures(event.point, {
+                layers: ['locations']
+            });
+            if (!features.length) return;
+
+            const clickedPoint = features[0];
+
+            flyToOffer(clickedPoint);
+            createPopUp(clickedPoint);
+
+            const activeItem = document.getElementsByClassName('active');
+            if (activeItem[0]) {
+                activeItem[0].classList.remove('active');
+            }
+            const listing = document.getElementById(
+                `listing-${clickedPoint.properties.id}`
+            );
+            listing.classList.add('active');
+        });
+
+        function buildLocationList(stores) {
+            for (const offer of offers.features) {
+                /* Add a new listing section to the sidebar. */
+                const listings = document.getElementById('listings');
+                const listing = listings.appendChild(document.createElement('dev'));
+                /* Assign a unique `id` to the listing. */
+                listing.id = `listing-${offer.properties.id}`;
+                /* Assign the `item-group-item` class to each listing for styling. */
+                listing.className = 'card';
+                listing.style.setProperty("max-width", "18rem")
+
+                /* Add the link to the individual listing created above. */
+                const link = listing.appendChild(document.createElement('a'));
+                link.href = '#';
+                link.className = 'card-title';
+                link.id = `link-${offer.properties.id}`;
+                link.innerHTML = `${offer.properties.description}`;
+
+                /* Add details to the individual listing. */
+                const details = listing.appendChild(document.createElement('div'));
+                details.innerHTML = `${offer.properties.description}`;
+                if (offer.properties.id) {
+                    details.innerHTML += `<p><a href="/offer-details/${offer.properties.id}/" class="btn btn-primary btn-sm">Details</a></p>`;
+                }
+
+                link.addEventListener('click', function () {
+                    for (const feature of offers.features) {
+                        if (this.id === `link-${feature.properties.id}`) {
+                            flyToOffer(feature);
+                            createPopUp(feature);
+                        }
+                    }
+                    const activeItem = document.getElementsByClassName('bg-info');
+                    if (activeItem[0]) {
+                        activeItem[0].classList.remove('bg-info');
+                    }
+                    this.parentNode.classList.add('bg-info');
+                });
+            }
+        }
+
+        function flyToOffer(currentFeature) {
+            map.flyTo({
+                center: currentFeature.geometry.coordinates,
+                zoom: 5.75
+            });
+        }
+
+        function createPopUp(currentFeature) {
+            const popUps = document.getElementsByClassName('mapboxgl-popup');
+            if (popUps[0]) popUps[0].remove();
+
+            const popup = new mapboxgl.Popup({closeOnClick: false})
+                .setLngLat(currentFeature.geometry.coordinates)
+                .setHTML(`${currentFeature.properties.description}`).addTo(map);
+        }
+
+    </script>
+
+{% endblock %}

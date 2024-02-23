@@ -40,11 +40,15 @@ from offers.views import (
     CategoryListView,
     CategoryDetailView,
     SearchResultsView,
+    MapListingView,
 )
 from accounts.views import (
     RegistrationView,
     ProfileUpdateView,
     ProfileDetailView,
+    CreateAddressView,
+    AddressDetailView,
+    search_results_map,
 )
 from offers.urls import urlpatterns as offer_urlpatterns
 
@@ -54,6 +58,7 @@ urlpatterns = [
     path("accounts/signup/", RegistrationView.as_view(), name='signup'),
     path("accounts/update-profile/<int:pk>/", ProfileUpdateView.as_view(), name='update-profile'),
     path("accounts/profile/<int:user_id>/", ProfileDetailView.as_view(), name='profile'),
+    path("accounts/create-address/", CreateAddressView.as_view(), name='create-address'),
     # offers
     path("offers-list/", OffersListView.as_view(), name="offers-list"),
     path("create-offer/", CreateOfferView.as_view(), name="create-offer"),
@@ -120,6 +125,10 @@ urlpatterns += [
     path("accounts/signup/", RegistrationView.as_view(), name='signup'),
     path("accounts/update-profile/<int:pk>/", ProfileUpdateView.as_view(), name='update-profile'),
     path("accounts/profile/<int:user_id>/", ProfileDetailView.as_view(), name='profile'),
+    path("create-address", CreateAddressView.as_view(), name='create-address'),
+    path("address-detail/<int:pk>/", AddressDetailView.as_view(), name='address-detail'),
+    path("search-results-map/<int:pk>/", search_results_map, name='search-results_map'),
+    path("map-listing/", MapListingView.as_view(), name='map-listing'),
     # offers
     path("offers-list/", OffersListView.as_view(), name="offers-list"),
     path("create-offer/", CreateOfferView.as_view(), name="create-offer"),

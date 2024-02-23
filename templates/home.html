@@ -20,7 +20,7 @@
                 <a href="{% url 'categories-list' %}" class="btn btn-outline-primary">Categories List</a>
             </div>
         </div>
-        <div class="card card-body text-white bg-dark">
+        <div class="card card-body bg-info">
           <h5 class="card-title">Search form</h5>
           <form action="{% url 'search' %}" method="get">
               {{ form|crispy }}

@@ -1,17 +1,17 @@
 from decimal import Decimal
 from unittest.mock import patch
-from pathlib import Path
 
 from django.conf import settings
 from django.test import TestCase, Client
 from django.contrib.auth.models import User
 
 from .models import Offer, ActualCountry
-from .services import (
+from service_layer.services import (
     get_address_info_by_coords,
     get_static_map_image_by_coords,
     get_count_offers_by_country_name,
     update_actual_country_record,
+    find_offers_within_radius,
 )
 from .mocks import *
 
@@ -20,6 +20,7 @@ class OfferTest(TestCase):
     fixtures = [
         'offers/fixtures/test/categories.json',
         'offers/fixtures/test/users.json',
+        'offers/fixtures/test/offers.json'
     ]
 
     def setUp(self):
@@ -51,7 +52,7 @@ class OfferTest(TestCase):
 
         res = self.client.post("/create-offer/", data=form_data)
         self.assertEqual(res.status_code, 302)
-        new_offer = Offer.objects.last()
+        new_offer = Offer.objects.all().order_by('pk').last()
         self.assertEqual(new_offer.type_offer, 'sell')
         self.assertEqual(new_offer.amount, Decimal('1000.00'))
         self.assertEqual(new_offer.details, 'protein - 33.25%, garbage - 1.2%')
@@ -91,8 +92,30 @@ class OfferTest(TestCase):
             longitude=Decimal('32.218506'),
             details='protein - 33.25% '
         )
+        expexted_number = len(Offer.objects.all())
         res = self.client.post("/create-offer/", data=form_data)
 
         self.assertEqual(res.status_code, 302)
-        new_offer = Offer.objects.last()
-        self.assertIsNone(new_offer)
+        after_number = len(Offer.objects.all())
+        self.assertEqual(expexted_number, after_number)
+
+    def test_find_offers_in_radius(self):
+        query_params = dict(
+            longitude=Decimal('30.97330811'),
+            latitude=Decimal('49.326304'),
+            radius_in_meters=200000,
+            category_id=6,
+            type_offer="'sell'",
+            min_price=Decimal('4000.00'),
+            max_price=Decimal('10000.00'),
+            currency="'UAH'",
+            expired_at="'2024-02-01'",
+        )
+        res = find_offers_within_radius(**query_params)
+        self.assertEqual(2, len(res))
+        self.assertEqual(
+            (11, 'sell', Decimal('5300.00'), 'UAH', Decimal('120.00'), 'EXW', 'Ukraine', 'Corn', 'Кукурудза'),
+            res[0])
+        self.assertEqual(
+            (12, 'sell', Decimal('4900.00'), 'UAH', Decimal('280.00'), 'EXW', 'Ukraine', 'Corn', 'Кукурудза'),
+            res[1])

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row" style="margin-top: 5rem;">
+    <div class="col-lg-3 col-md-3">
+        <div class="card card-body" style="background-color: firebrick;">
+            <h5 class="card-title">Create new address</h5>
+            <form action="" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+            <input type="submit" class="btn btn-primary btn-block" value="Submit">
+            </form>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6">
+        <div class="card card-body">
+            <h5 class="card-title">Find your delivery place on the map using search and pick marker up.</h5>
+            <p>The coordinates will be added to form automatically.</p>
+            {% include 'include/map_form.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

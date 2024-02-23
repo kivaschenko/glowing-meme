@@ -8,6 +8,7 @@ from django.forms import (
 )
 from django.core import validators
 
+from accounts import forms
 from .models import Category, ActualCountry
 
 
@@ -22,9 +23,11 @@ class OfferForm(Form):
     terms_delivery = ChoiceField(choices=(("EXW", "EXW - Ex Works (Франко-завод)"),
                                           ("FCA", "FCA - Free Carrier (Франко-перевізник)"),
                                           ("CPT", "CPT - Carriage Paid To (Перевезення оплачено до)"),
-                                          ("CIP", "CIP - Carriage and Insurance Paid To (Перевезення та страхування оплачено до)"),
+                                          ("CIP",
+                                           "CIP - Carriage and Insurance Paid To (Перевезення та страхування оплачено до)"),
                                           ("DAP", "DAP - Delivered At Place (Поставка в місці)"),
-                                          ("DPU", "DPU - Delivered At Place Unloaded (Поставка в місці з розвантаженням)"),
+                                          ("DPU",
+                                           "DPU - Delivered At Place Unloaded (Поставка в місці з розвантаженням)"),
                                           ("DDP", "DDP - Delivered Duty Paid (Поставка з оплатою мита)"),
                                           ("FAS", "FAS - Free Alongside Ship (Франко вздовж борту судна)"),
                                           ("FOB", "FOB - Free On Board (Франко-борт)"),
@@ -90,3 +93,5 @@ class SearchForm(Form):
         ),
         required=False,
     )
+
+

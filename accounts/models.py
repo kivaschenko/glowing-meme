@@ -67,17 +67,18 @@ class Address(models.Model):
     address = models.CharField(max_length=150, blank=True, null=True)
     region = models.CharField(max_length=150, blank=True, null=True)
     country = models.CharField(max_length=150, blank=True, null=True)
-    mini_map = models.FileField(upload_to='address_static_maps/', null=True)
+    mini_map = models.FileField(upload_to='address_static_maps/', null=True, blank=True)
 
     # geometry location
     geometry_point = gis_models.PointField(verbose_name="Location", srid=4326)
 
     class Meta:
+        unique_together = ('user', 'address_name')
         db_table = 'addresses'
-        ordering = ['country', 'region']
+        ordering = ['address_name']
 
     def __str__(self):
-        return f"Address for {self.user}: {self.address_name} at {self.address}"
+        return f"{self.address_name}"
 
     def __repr__(self):
         return f"<Address(user={self.user} name={self.name}, latitude={self.latitude} longitude={self.longitude})>"
